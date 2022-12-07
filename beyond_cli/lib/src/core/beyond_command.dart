@@ -1,36 +1,40 @@
 import 'dart:async';
+import 'dart:html';
 import 'dart:io';
+
+import '../common/draw_progress_bar.dart';
 
 class BeyondCommand {
   static final progressStreamController = StreamController<double>.broadcast();
   static final progress = progressStreamController.stream.asBroadcastStream();
 
-  static createProject(String projectName) async {
+  static Future<void> createProject(String projectName) async {
     listenProgress();
     progressStreamController.add(0);
-    final currentDir = Directory.current.path;
+    final currentDirectory = Directory.current.path;
+    final projectDirectory = '$currentDirectory/$projectName';
 
     await createDirectory(
-      currentDirectory: currentDir,
+      currentDirectory: currentDirectory,
       projectName: projectName,
     ).then(
       (ProcessResult result) async {
-        final newDirectory = '$currentDir/$projectName';
         progressStreamController.add(25);
-        await initializeServer(newDirectory);
+        await initializeServer(projectDirectory);
         progressStreamController.add(50);
-        await initializeClient(newDirectory);
+        await initializeClient(projectDirectory);
         progressStreamController.add(75);
-        await initializeShared(newDirectory);
+        await initializeShared(projectDirectory);
         progressStreamController.add(100);
       },
     );
+
     await Future.delayed(
-      Duration(
-        milliseconds: 50,
-      ),
-    ).whenComplete(() {
+      Duration(milliseconds: 50),
+    ).whenComplete(() async {
       stdout.write('\n');
+      stdout.writeln('Cleaning shared directory');
+      await cleanShared(projectDirectory);
       stdout.writeln('All proccess done !');
       progressStreamController.close();
     });
@@ -67,12 +71,37 @@ class BeyondCommand {
   }
 
   static Future<ProcessResult> initializeShared(String directory) async {
-    /// Create server client (Web)
+    /// Create shared directory between client & server
     return Process.run(
       'dart',
-      ['create', '-t', 'package', 'shared'],
+      ['create', '-t', 'package', 'shared', '--[no-]pub'],
       workingDirectory: directory,
     );
+  }
+
+  static Future<ProcessResult> cleanShared(String directory) async {
+    /// Clean shared directory
+    return Process.run(
+      'rm',
+      ['-r', 'example'],
+      workingDirectory: '$directory/shared',
+    );
+  }
+
+  static Future<int> validateCommand(List<String> args) async {
+    final argumentLength = args.length;
+    switch (args[0]) {
+      case 'create':
+        if (argumentLength > 1) {
+          await createProject(args[1]);
+          break;
+        } else {
+          return 2;
+        }
+      default:
+        return 2;
+    }
+    return 0;
   }
 
   static void listenProgress() {
@@ -81,15 +110,5 @@ class BeyondCommand {
     progress.listen((progress) {
       drawProgressBar(progress / 100.0, 50);
     });
-  }
-
-  static void drawProgressBar(double amount, int size) {
-    final limit = (size * amount).toInt();
-    final chars = String.fromCharCodes(
-      List.generate(size, (int index) => (index < limit) ? 0x2593 : 0x2591),
-    );
-    stdout.write(
-      '\r\x1b[38;5;75;51m$chars\x1b[0m',
-    );
   }
 }
