@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:html';
 import 'dart:io';
 
 import '../common/draw_progress_bar.dart';
