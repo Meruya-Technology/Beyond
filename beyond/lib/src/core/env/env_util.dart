@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'env.dart';
 
-class EnvParser {
+class EnvUtil {
   static String get currentDirectory => Directory.current.path.toString();
   static String get env => '$currentDirectory/.env';
 
