@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:beyond_cli/src/core/server_command.dart';
+import 'package:beyond_cli/src/core/version.dart';
 import 'package:beyond_cli/src/utils/stdout_util.dart';
 
 import '../common/draw_progress_bar.dart';
@@ -86,19 +87,60 @@ class BeyondCommand {
   }
 
   static Future<int> validateCommand(List<String> args) async {
-    final argumentLength = args.length;
     switch (args[0]) {
+      case '--version':
+        return await printVersion();
+      case '-h':
+        return await printGlobalHelp();
+      case 'help':
+        return await printGlobalHelp();
       case 'create':
-        if (argumentLength > 1) {
-          await createProject(args[1]);
-          break;
-        } else {
-          return 2;
-        }
+        return await runCreateCommand(args);
       default:
         return 2;
     }
-    return 0;
+  }
+
+  static Future<int> runCreateCommand(List<String> args) async {
+    if (args.length > 1) {
+      if (args[1] == '-h') {
+        return printCreateHelp();
+      } else {
+        await createProject(args[1]);
+        return 0;
+      }
+    } else {
+      return 2;
+    }
+  }
+
+  static Future<int> printCreateHelp() {
+    stdout.writeln('Create a new Beyond project');
+    stdout.writeln('Usage: dart create <projectname>');
+    stdout.writeln('Run "beyond help" to see global options');
+    return Future.value(0);
+  }
+
+  static Future<int> printGlobalHelp() {
+    stdout.writeln(
+      'Beyond is a command-line utility for fullstack dart project\n',
+    );
+    stdout.writeln('Usage: dart <command> [arguments]');
+    stdout.writeln('Global options :');
+    stdout.writeln('-h, help            Print this usage information');
+    stdout.writeln('-v, version         Print the beyond version\n');
+    stdout.writeln('Available commands :');
+    stdout.writeln('  create            Create Beyond project');
+    return Future.value(0);
+  }
+
+  static Future<int> printVersion() {
+    stdout.writeln(
+      StdoutUtil.printColor(
+        'Beyond CLI version: $currentVersion',
+      ),
+    );
+    return Future.value(0);
   }
 
   static void listenProgress() {
