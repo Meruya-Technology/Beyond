@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:beyond_cli/src/core/server_command.dart';
+
 import '../common/draw_progress_bar.dart';
 
 class BeyondCommand {
@@ -51,13 +53,8 @@ class BeyondCommand {
     );
   }
 
-  static Future<ProcessResult> initializeServer(String directory) async {
-    /// Create server package
-    return Process.run(
-      'dart',
-      ['create', '-t', 'server-shelf', 'server'],
-      workingDirectory: directory,
-    );
+  static Future<void> initializeServer(String directory) async {
+    await ServerCommand.initializeTemplate(directory);
   }
 
   static Future<ProcessResult> initializeClient(String directory) async {
