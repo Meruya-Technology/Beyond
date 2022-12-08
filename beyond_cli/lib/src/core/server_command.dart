@@ -72,42 +72,43 @@ class ServerCommand {
 
   static Future<void> writePostgresql(String serverDirectory) async {
     /// Write new Yaml, using booted template
-    final file = File('$serverDirectory/src/utils/postgresql.dart');
+    final file = File('$serverDirectory/lib/src/utils/postgresql.dart');
     final template = PostgresqlSample.content;
     DirectoryUtil.createFile(file, template);
   }
 
   static Future<void> writeDatabaseUtil(String serverDirectory) async {
     /// Write new Yaml, using booted template
-    final file = File('$serverDirectory/src/utils/database_util_sample.dart');
+    final file = File('$serverDirectory/lib/src/utils/database_util.dart');
     final template = DatabaseUtilSample.content;
     DirectoryUtil.createFile(file, template);
   }
 
   static Future<void> writeCustomErrorHandler(String serverDirectory) async {
     /// Write new Yaml, using booted template
-    final file = File('$serverDirectory/src/utils/custom_error_handler.dart');
+    final file =
+        File('$serverDirectory/lib/src/utils/custom_error_handler.dart');
     final template = CustomErrorHandlerSample.content;
     DirectoryUtil.createFile(file, template);
   }
 
   static Future<void> writeApi(String serverDirectory) async {
     /// Write new Yaml, using booted template
-    final file = File('$serverDirectory/src/app/api.dart');
+    final file = File('$serverDirectory/lib/src/app/api.dart');
     final template = ApiSample.content;
     DirectoryUtil.createFile(file, template);
   }
 
   static Future<void> writeHttp(String serverDirectory) async {
     /// Write new Yaml, using booted template
-    final file = File('$serverDirectory/src/app/http.dart');
+    final file = File('$serverDirectory/lib/src/app/http.dart');
     final template = HttpSample.content;
     DirectoryUtil.createFile(file, template);
   }
 
   static Future<void> writeGetUser(String serverDirectory) async {
     /// Write new Yaml, using booted template
-    final file = File('$serverDirectory/src/app/usecases/get_user.dart');
+    final file = File('$serverDirectory/lib/src/app/usecases/get_user.dart');
     final template = GetUserSample.content;
     DirectoryUtil.createFile(file, template);
   }
@@ -115,7 +116,7 @@ class ServerCommand {
   static Future<void> writeUserController(String serverDirectory) async {
     /// Write new Yaml, using booted template
     final file = File(
-      '$serverDirectory/src/app/controller/user_controller.dart',
+      '$serverDirectory/lib/src/app/controllers/user_controller.dart',
     );
     final template = UserControllerSample.content;
     DirectoryUtil.createFile(file, template);

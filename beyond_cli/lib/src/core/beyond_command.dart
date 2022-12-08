@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:beyond_cli/src/core/server_command.dart';
+import 'package:beyond_cli/src/utils/stdout_util.dart';
 
 import '../common/draw_progress_bar.dart';
 
@@ -101,8 +102,16 @@ class BeyondCommand {
   }
 
   static void listenProgress() {
-    stdout.write('\n\x1b[38;5;39mInitializing project, please wait\x1b[0m');
-    stdout.writeln('\n\x1b[38;5;39mMake sure internet is on\x1b[0m');
+    stdout.writeln(
+      StdoutUtil.printColor(
+        'Initializing project, sometimes takes a while please wait',
+      ),
+    );
+    stdout.writeln(
+      StdoutUtil.printColor(
+        'Make sure internet is on',
+      ),
+    );
     progress.listen((progress) {
       drawProgressBar(progress / 100.0, 50);
     });
