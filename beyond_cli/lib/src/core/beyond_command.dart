@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:beyond_cli/src/core/server/server_create.dart';
 import 'package:beyond_cli/src/core/server_command.dart';
 import 'package:beyond_cli/src/core/version.dart';
 import 'package:beyond_cli/src/utils/stdout_util.dart';
@@ -23,7 +24,7 @@ class BeyondCommand {
     ).then(
       (ProcessResult result) async {
         progressStreamController.add(25);
-        await initializeServer(projectDirectory);
+        await ServerCreate.project(projectDirectory);
         progressStreamController.add(50);
         await initializeClient(projectDirectory);
         progressStreamController.add(75);
@@ -55,10 +56,6 @@ class BeyondCommand {
     );
   }
 
-  static Future<void> initializeServer(String directory) async {
-    await ServerCommand.initializeTemplate(directory);
-  }
-
   static Future<ProcessResult> initializeClient(String directory) async {
     /// Create server client (Web)
     return Process.run(
@@ -86,7 +83,7 @@ class BeyondCommand {
     );
   }
 
-  static Future<int> validateCommand(List<String> args) async {
+  static Future<int> dispatchCommand(List<String> args) async {
     switch (args[0]) {
       case '--version':
         return await printVersion();
@@ -96,6 +93,8 @@ class BeyondCommand {
         return await printGlobalHelp();
       case 'create':
         return await runCreateCommand(args);
+      case 'server:generate':
+        return await ServerCommand.generate(args);
       default:
         return 2;
     }
