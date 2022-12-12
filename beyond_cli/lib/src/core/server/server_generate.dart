@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:beyond_cli/src/samples/server/src/app/models.dart/model_sample.dart';
 import 'package:beyond_cli/src/utils/json_util.dart';
 import 'package:beyond_cli/src/utils/stdout_util.dart';
+import 'package:beyond_cli/src/utils/text_util.dart';
 
 import '../../utils/directory_util.dart';
 
@@ -17,8 +19,8 @@ class ServerGenerate {
     final jsonUtil = JsonUtil();
     final rootDir = Directory.current.path;
     final filePath = '$rootDir/$path';
-    final fileName = path?.split('/').last;
-    final newClassName = className ?? fileName!;
+    final sourceFileName = path?.split('/').last;
+    final newClassName = className ?? sourceFileName!;
 
     /// Exit when path is null, because to generate model we need json input
     if (path == null) {
@@ -34,12 +36,20 @@ class ServerGenerate {
       /// If the result is not null, which it means the json is legit then do
       /// the convert task into multiple dart class
       if (parsedJson != null) {
-        final results = jsonUtil.segregateToClass(newClassName, parsedJson);
+        final results = jsonUtil.segregateToClass(
+          newClassName,
+          parsedJson,
+        );
+        stdout.writeln('Generating ${results.length} file');
+
+        /// Segregate json into multiple classes
         for (var result in results) {
-          final file = File('$rootDir/${newClassName.toLowerCase()}.dart');
+          final fileName = TextUtil.snakeCase(result['className']);
+          final file = File('$rootDir/$fileName.dart');
+          final content = ModelSample.buildClassString(result);
           DirectoryUtil.createFile(
             file,
-            jsonEncode(result),
+            content,
           );
         }
       }

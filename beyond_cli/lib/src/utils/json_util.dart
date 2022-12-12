@@ -58,7 +58,7 @@ class JsonUtil {
         'name': propertyKey,
         'type': propertyValue,
         'originalKey': key,
-        'isChildPrimitive': isChildListOrMap,
+        'isChildListOrMap': isChildListOrMap,
         'childType': childType
       };
 

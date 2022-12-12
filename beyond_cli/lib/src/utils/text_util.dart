@@ -18,14 +18,26 @@ class TextUtil {
   static String upperCamelCase(String value) {
     var result = '';
     final words = value.split(
-      RegExp(r'(?=[A-Z_-])'),
+      RegExp(r'(?=[A-Z])'),
     );
     for (var word in words) {
-      final capitalizeWord = word.replaceAll(
+      final sanitizedWord = word.replaceAll(
         RegExp(r'[^a-zA-Z\d\s:]'),
         '',
       );
-      result += capital(capitalizeWord);
+      result += capital(sanitizedWord);
+    }
+    return result;
+  }
+
+  static String snakeCase(String value) {
+    var result = '';
+    final words = value.split(
+      RegExp(r'(?=[A-Z])'),
+    );
+    for (var i = 0; i < words.length; i++) {
+      final separator = (i != 0 && i != words.length) ? '_' : '';
+      result += '$separator${words[i].toLowerCase()}';
     }
     return result;
   }
