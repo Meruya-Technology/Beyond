@@ -1,10 +1,12 @@
 import 'dart:convert';
 
+import 'package:beyond_cli/src/core/base_class.dart';
+import 'package:beyond_cli/src/core/base_class_property.dart';
 import 'package:beyond_cli/src/utils/data_util.dart';
 import 'package:beyond_cli/src/utils/text_util.dart';
 
 class JsonUtil {
-  List<Map<dynamic, dynamic>> classes = [];
+  List<BaseClass> classes = [];
 
   static Map<dynamic, dynamic>? tryParse(String? rawJson) {
     if (rawJson == null) return null;
@@ -16,7 +18,7 @@ class JsonUtil {
     }
   }
 
-  List<Map<dynamic, dynamic>> segregateToClass(
+  List<BaseClass> segregateToClass(
     String className,
     Map<dynamic, dynamic> parsedJson,
   ) {
@@ -25,19 +27,21 @@ class JsonUtil {
 
     /// Add class to classes, meanwhile createClassObject will loop is there any
     /// layer left to segregate
-    classes.add({
-      'className': modifiedClassName,
-      'properties': createProperties(parsedJson),
-      'child': parsedJson,
-      'key': modifiedClassName
-    });
+    classes.add(
+      BaseClass(
+        className: modifiedClassName,
+        properties: createProperties(parsedJson),
+        child: parsedJson,
+        key: modifiedClassName,
+      ),
+    );
 
     /// Return classes as result
     return classes;
   }
 
-  List<Map<dynamic, dynamic>> createProperties(Map<dynamic, dynamic> json) {
-    List<Map<dynamic, dynamic>> properties = [];
+  List<BaseClassProperty> createProperties(Map<dynamic, dynamic> json) {
+    List<BaseClassProperty> properties = [];
     var keys = json.keys;
 
     /// Doing loop per json keys
@@ -45,7 +49,7 @@ class JsonUtil {
       /// First get child type
       var childType = collectionTypeMapper(key, json[key]);
       var propertyKey = TextUtil.propercase(key.toString());
-      var propertyValue = DataUtil.toPulicRunTimeType(
+      var originialType = DataUtil.toPulicRunTimeType(
         json[key],
         childType,
       );
@@ -54,13 +58,14 @@ class JsonUtil {
       );
 
       /// Construct property to be added to properties
-      final property = {
-        'name': propertyKey,
-        'type': propertyValue,
-        'originalKey': key,
-        'isChildListOrMap': isChildListOrMap,
-        'childType': childType
-      };
+      final property = BaseClassProperty(
+        name: propertyKey,
+        originalType: originialType,
+        newType: originialType,
+        originalKey: key,
+        isChildListOrMap: isChildListOrMap,
+        childType: childType,
+      );
 
       /// Add property to properties
       properties.add(property);
@@ -93,21 +98,25 @@ class JsonUtil {
   /// Convert List<anything> into class information
   void listToClassInformation(String parentKey, List<dynamic> list) {
     var firstJson = list.first;
-    classes.add({
-      'className': TextUtil.capital(parentKey),
-      'properties': createProperties(firstJson),
-      'child': firstJson,
-      'key': parentKey
-    });
+    classes.add(
+      BaseClass(
+        className: TextUtil.capital(parentKey),
+        properties: createProperties(firstJson),
+        child: firstJson,
+        key: parentKey,
+      ),
+    );
   }
 
   /// Convert map into class information
   void mapToClassInformation(String key, Map<dynamic, dynamic> json) {
-    classes.add({
-      'className': TextUtil.capital(key),
-      'properties': createProperties(json),
-      'child': json,
-      'key': key
-    });
+    classes.add(
+      BaseClass(
+        className: TextUtil.capital(key),
+        properties: createProperties(json),
+        child: json,
+        key: key,
+      ),
+    );
   }
 }

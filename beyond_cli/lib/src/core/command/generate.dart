@@ -1,6 +1,6 @@
-import 'dart:convert';
 import 'dart:io';
 
+import 'package:args/args.dart';
 import 'package:beyond_cli/src/samples/server/src/app/models.dart/model_sample.dart';
 import 'package:beyond_cli/src/utils/json_util.dart';
 import 'package:beyond_cli/src/utils/stdout_util.dart';
@@ -8,7 +8,28 @@ import 'package:beyond_cli/src/utils/text_util.dart';
 
 import '../../utils/directory_util.dart';
 
-class ServerGenerate {
+class Generate {
+  static Future<int> dispatch(List<String> args) async {
+    var parser = ArgParser();
+    parser.addOption('path', defaultsTo: null);
+    final parsedArgs = parser.parse(args);
+
+    /// Declare default value for path
+    final path = parsedArgs['path'];
+
+    if (args.length < 2) return 2;
+    switch (args[1]) {
+      case 'model':
+        final withoutClassName = args[2].startsWith('--');
+        return Generate.model(
+          withoutClassName ? null : args[2],
+          path,
+        );
+      default:
+        return 2;
+    }
+  }
+
   /// Generate model with json as an input, this method will separate the json
   /// layer per layer. First it will segregate first layer, then it will scan
   /// if there any layer left to segregate, if not it's finish
@@ -20,7 +41,7 @@ class ServerGenerate {
     final rootDir = Directory.current.path;
     final filePath = '$rootDir/$path';
     final sourceFileName = path?.split('/').last;
-    final newClassName = className ?? sourceFileName!;
+    final newClassName = className ?? sourceFileName!.split('.')[0];
 
     /// Exit when path is null, because to generate model we need json input
     if (path == null) {
@@ -44,9 +65,9 @@ class ServerGenerate {
 
         /// Segregate json into multiple classes
         for (var result in results) {
-          final fileName = TextUtil.snakeCase(result['className']);
+          final fileName = TextUtil.snakeCase(result.className);
           final file = File('$rootDir/$fileName.dart');
-          final content = ModelSample.buildClassString(result);
+          final content = ModelSample.build(result);
           DirectoryUtil.createFile(
             file,
             content,

@@ -11,7 +11,7 @@ import 'package:beyond_cli/src/samples/server/src/utils/database_util_sample.dar
 import 'package:beyond_cli/src/samples/server/src/utils/postgresql_sample.dart';
 import 'package:beyond_cli/src/utils/directory_util.dart';
 
-class ServerCreate {
+class Server {
   static Future<void> project(String directory) async {
     final serverDirectory = '$directory/server';
     await initializeServer(directory);
