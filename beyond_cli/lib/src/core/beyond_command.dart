@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:args/args.dart';
 import 'package:beyond_cli/src/core/command/version.dart';
 
 import 'command/create.dart';
