@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:beyond_cli/src/core/command/help.dart';
 import 'package:beyond_cli/src/samples/server/src/app/models.dart/model_sample.dart';
 import 'package:beyond_cli/src/utils/json_util.dart';
 import 'package:beyond_cli/src/utils/stdout_util.dart';
@@ -11,7 +12,8 @@ import '../../utils/directory_util.dart';
 class Generate {
   static Future<int> dispatch(List<String> args) async {
     var parser = ArgParser();
-    parser.addOption('path', defaultsTo: null);
+    parser.addFlag('help', abbr: 'h', defaultsTo: null);
+    parser.addFlag('path', defaultsTo: null);
     final parsedArgs = parser.parse(args);
 
     /// Declare default value for path
@@ -25,6 +27,10 @@ class Generate {
           withoutClassName ? null : args[2],
           path,
         );
+      case '-h':
+        return Help.generate();
+      case 'help':
+        return Help.generate();
       default:
         return 2;
     }

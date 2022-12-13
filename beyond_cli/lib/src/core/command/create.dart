@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:beyond_cli/src/core/command/create/client.dart';
 
-import '../../common/draw_progress_bar.dart';
 import '../../utils/stdout_util.dart';
 import 'create/server.dart';
 import 'create/shared.dart';
@@ -15,7 +14,7 @@ class Create {
 
   static Future<int> dispatch(List<String> args) async {
     if (args.length > 1) {
-      if (args[1] == '-h') {
+      if (args[1] == '-h' || args[1] == 'help') {
         return Help.create();
       } else {
         await Create.project(args[1]);
@@ -74,7 +73,7 @@ class Create {
       ),
     );
     progress.listen((progress) {
-      drawProgressBar(progress / 100.0, 50);
+      StdoutUtil.drawProgressBar(progress / 100.0, 50);
     });
   }
 }

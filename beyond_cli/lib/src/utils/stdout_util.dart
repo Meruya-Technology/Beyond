@@ -1,3 +1,5 @@
+import 'dart:io';
+
 class StdoutUtil {
   /// Format \n\x1b[38;5;39m$message\x1b[0m
   /// - \n for new line
@@ -12,4 +14,14 @@ class StdoutUtil {
     String code = '39',
   }) =>
       '\x1b[38;5;${code}m$message\x1b[0m';
+
+  static void drawProgressBar(double amount, int size) {
+    final limit = (size * amount).toInt();
+    final chars = String.fromCharCodes(
+      List.generate(size, (int index) => (index < limit) ? 0x2593 : 0x2591),
+    );
+    stdout.write(
+      '\r\x1b[38;5;75;51m$chars\x1b[0m',
+    );
+  }
 }

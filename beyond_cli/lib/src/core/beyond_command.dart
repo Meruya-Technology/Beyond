@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:args/args.dart';
 import 'package:beyond_cli/src/core/command/version.dart';
 
 import 'command/create.dart';
@@ -7,9 +8,6 @@ import 'command/generate.dart';
 import 'command/help.dart';
 
 class BeyondCommand {
-  static final progressStreamController = StreamController<double>.broadcast();
-  static final progress = progressStreamController.stream.asBroadcastStream();
-
   static Future<int> dispatchCommand(List<String> args) async {
     switch (args[0]) {
       case '--version':

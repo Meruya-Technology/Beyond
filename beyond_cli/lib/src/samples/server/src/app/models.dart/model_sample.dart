@@ -1,4 +1,4 @@
-import 'package:beyond_cli/src/core/base_class.dart';
+import 'package:beyond_cli/src/core/entity/base_class.dart';
 import 'package:beyond_cli/src/utils/text_util.dart';
 
 class ModelSample {
