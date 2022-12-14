@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/args.dart';
@@ -5,7 +6,6 @@ import 'package:beyond_cli/src/core/command/help.dart';
 import 'package:beyond_cli/src/samples/server/src/app/models.dart/model_sample.dart';
 import 'package:beyond_cli/src/utils/json_util.dart';
 import 'package:beyond_cli/src/utils/stdout_util.dart';
-import 'package:beyond_cli/src/utils/text_util.dart';
 
 import '../../utils/directory_util.dart';
 
@@ -13,7 +13,7 @@ class Generate {
   static Future<int> dispatch(List<String> args) async {
     var parser = ArgParser();
     parser.addFlag('help', abbr: 'h', defaultsTo: null);
-    parser.addFlag('path', defaultsTo: null);
+    parser.addOption('path', defaultsTo: null);
     final parsedArgs = parser.parse(args);
 
     /// Declare default value for path
@@ -23,6 +23,7 @@ class Generate {
     switch (args[1]) {
       case 'model':
         final withoutClassName = args[2].startsWith('--');
+        stdout.write(path);
         return Generate.model(
           withoutClassName ? null : args[2],
           path,
@@ -43,7 +44,7 @@ class Generate {
     String? className,
     String? path,
   ) async {
-    final jsonUtil = JsonUtil();
+    final jsonUtil = JsonUtil(prefix: 'dto');
     final rootDir = Directory.current.path;
     final filePath = '$rootDir/$path';
     final sourceFileName = path?.split('/').last;
@@ -71,14 +72,22 @@ class Generate {
 
         /// Segregate json into multiple classes
         for (var result in results) {
-          final fileName = TextUtil.snakeCase(result.className);
-          final file = File('$rootDir/$fileName.dart');
+          final file = File('$rootDir/${result.fileName}.dart');
           final content = ModelSample.build(result);
           DirectoryUtil.createFile(
             file,
             content,
           );
         }
+
+        final manifest = File('$rootDir/manifest.json');
+        DirectoryUtil.createFile(
+          manifest,
+          jsonEncode({
+            'class': results.length,
+            'classes': results.map((e) => e.className).toString()
+          }),
+        );
       }
 
       return 0;

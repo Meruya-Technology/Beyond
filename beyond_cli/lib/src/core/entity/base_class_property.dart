@@ -1,17 +1,19 @@
 class BaseClassProperty {
   final String name;
-  final String originalType;
-  final String newType;
+  final String type;
   final String originalKey;
-  final bool? isChildListOrMap;
+  final bool? isListOrMap;
   final String? childType;
+  final bool mapToModel;
+  final bool isAList;
 
   BaseClassProperty({
     required this.name,
-    required this.originalType,
-    required this.newType,
+    required this.type,
     required this.originalKey,
-    this.isChildListOrMap,
+    this.isListOrMap,
     this.childType,
+    this.mapToModel = false,
+    this.isAList = false,
   });
 }

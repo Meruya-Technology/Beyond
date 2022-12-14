@@ -4,21 +4,25 @@ class TextUtil {
     return value[0].toUpperCase() + value.substring(1);
   }
 
-  static String propercase(String value) {
-    if (value.length > 2) {
-      return value.replaceAll(
-        RegExp(r'/\w\S*/g'),
-        value[0].toLowerCase() + value.substring(1),
+  static String camelCase(String value) {
+    var result = '';
+    final words = value.split(
+      RegExp(r'(?=[A-Z_])'),
+    );
+    for (var word in words) {
+      final sanitizedWord = word.replaceAll(
+        RegExp(r'[^a-zA-Z\d\s:]'),
+        '',
       );
-    } else {
-      return value.toLowerCase();
+      result += capital(sanitizedWord);
     }
+    return result[0].toLowerCase() + result.substring(1);
   }
 
   static String upperCamelCase(String value) {
     var result = '';
     final words = value.split(
-      RegExp(r'(?=[A-Z])'),
+      RegExp(r'(?=[A-Z_])'),
     );
     for (var word in words) {
       final sanitizedWord = word.replaceAll(

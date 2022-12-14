@@ -6,6 +6,12 @@ import 'package:beyond_cli/src/utils/data_util.dart';
 import 'package:beyond_cli/src/utils/text_util.dart';
 
 class JsonUtil {
+  final String? prefix;
+
+  JsonUtil({
+    this.prefix,
+  });
+
   List<BaseClass> classes = [];
 
   static Map<dynamic, dynamic>? tryParse(String? rawJson) {
@@ -22,13 +28,17 @@ class JsonUtil {
     String className,
     Map<dynamic, dynamic> parsedJson,
   ) {
-    /// Declare first class name
-    var modifiedClassName = TextUtil.capital(className);
+    final newClassName = (prefix != null) ? '${className}_$prefix' : className;
+
+    /// Declare first file & class name
+    final fileName = TextUtil.snakeCase(newClassName);
+    final modifiedClassName = TextUtil.upperCamelCase(newClassName);
 
     /// Add class to classes, meanwhile createClassObject will loop is there any
     /// layer left to segregate
     classes.add(
       BaseClass(
+        fileName: fileName,
         className: modifiedClassName,
         properties: createProperties(parsedJson),
         child: parsedJson,
@@ -44,43 +54,61 @@ class JsonUtil {
     List<BaseClassProperty> properties = [];
     var keys = json.keys;
 
-    /// Doing loop per json keys
+    /// Generate a properties map from keys
+    /// 1. Property name
+    /// 2. Original type (Map, List<T>, String, int, double, bool)
+    /// 3. New type (T, List<T>) T on here can be model
+    /// 4. Boolean is list or map
+    /// 5. Children runtime type (T, or String, int, double, bool)
+    /// 6. Map to model
     for (var key in keys) {
       /// First get child type
-      var childType = collectionTypeMapper(key, json[key]);
-      var propertyKey = TextUtil.propercase(key.toString());
-      var originialType = DataUtil.toPulicRunTimeType(
+      var childType = DataUtil.getChildType(
+        json[key],
+        key,
+        prefix: prefix,
+      );
+
+      /// Get the property key using proper case
+      var propertyKey = TextUtil.camelCase(
+        key,
+      );
+
+      /// Get the property converted type. Map will be converted to T, and
+      /// List<Map> will converted to List<T>, and the rest remain the same
+      var propertyType = DataUtil.toModelRunTimeType(
         json[key],
         childType,
       );
-      var isChildListOrMap = DataUtil.isListOrMap(
+
+      /// Mark the property child list or map
+      var isListOrMap = DataUtil.isListOrMap(
         json[key] is List ? json[key][0] : json[key],
       );
 
       /// Construct property to be added to properties
       final property = BaseClassProperty(
         name: propertyKey,
-        originalType: originialType,
-        newType: originialType,
+        type: propertyType,
         originalKey: key,
-        isChildListOrMap: isChildListOrMap,
+        isListOrMap: isListOrMap,
         childType: childType,
+        mapToModel: DataUtil.isModelAble(
+          json[key],
+          childType,
+        ),
+        isAList: json[key] is List,
       );
 
       /// Add property to properties
       properties.add(property);
 
       /// Then check if the child is a Map<String, dynamic> repeat the process
-      if (isChildListOrMap) {
+      if (isListOrMap) {
         repeat(json, key);
       }
     }
     return properties;
-  }
-
-  String collectionTypeMapper(key, value) {
-    var firstArray = value[0];
-    return DataUtil.toPulicRunTimeType(firstArray, null);
   }
 
   /// Repeat the process
@@ -97,10 +125,17 @@ class JsonUtil {
 
   /// Convert List<anything> into class information
   void listToClassInformation(String parentKey, List<dynamic> list) {
+    final newClassName = (prefix != null) ? '${parentKey}_$prefix' : parentKey;
+
+    /// Declare first file & class name
+    final fileName = TextUtil.snakeCase(newClassName);
+    final modifiedClassName = TextUtil.upperCamelCase(newClassName);
     var firstJson = list.first;
+
     classes.add(
       BaseClass(
-        className: TextUtil.capital(parentKey),
+        fileName: fileName,
+        className: modifiedClassName,
         properties: createProperties(firstJson),
         child: firstJson,
         key: parentKey,
@@ -110,9 +145,16 @@ class JsonUtil {
 
   /// Convert map into class information
   void mapToClassInformation(String key, Map<dynamic, dynamic> json) {
+    final newClassName = (prefix != null) ? '${key}_$prefix' : key;
+
+    /// Declare first file & class name
+    final fileName = TextUtil.snakeCase(newClassName);
+    final modifiedClassName = TextUtil.upperCamelCase(newClassName);
+
     classes.add(
       BaseClass(
-        className: TextUtil.capital(key),
+        fileName: fileName,
+        className: modifiedClassName,
         properties: createProperties(json),
         child: json,
         key: key,
