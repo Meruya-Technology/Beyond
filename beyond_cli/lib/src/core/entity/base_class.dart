@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'base_class_property.dart';
 
 class BaseClass {
@@ -14,4 +16,13 @@ class BaseClass {
     this.child,
     required this.key,
   });
+
+  Map<String, dynamic> get manifest => {
+        'fileName': fileName,
+        'className': className,
+        'propertiesLength': properties.length,
+        'properties': properties.map((property) => property.manifest).toList(),
+        'child': child,
+        'key': key,
+      };
 }

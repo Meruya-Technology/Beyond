@@ -16,4 +16,14 @@ class BaseClassProperty {
     this.mapToModel = false,
     this.isAList = false,
   });
+
+  Map<String, dynamic> get manifest => {
+        'name': name,
+        'type': type,
+        'originalKey': originalKey,
+        'isListOrMap': isListOrMap,
+        'childType': childType,
+        'mapToModel': mapToModel,
+        'isAList': isAList,
+      };
 }

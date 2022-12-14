@@ -8,6 +8,7 @@ import 'package:beyond_cli/src/utils/json_util.dart';
 import 'package:beyond_cli/src/utils/stdout_util.dart';
 
 import '../../utils/directory_util.dart';
+import '../entity/base_class.dart';
 
 class Generate {
   static Future<int> dispatch(List<String> args) async {
@@ -60,13 +61,6 @@ class Generate {
     final sourceFileName = path?.split('/').last;
     final newClassName = className ?? sourceFileName!.split('.')[0];
 
-    /// Exit when path is null, because to generate model we need json input
-    if (path == null) {
-      stdout.writeln('To create a model, you need to add a json file');
-      stdout.writeln('Use beyond server:generate model -h');
-      return 2;
-    }
-
     return await File(filePath).readAsString().then((String contents) {
       /// First tryParse the json file
       final parsedJson = JsonUtil.tryParse(contents);
@@ -90,14 +84,7 @@ class Generate {
           );
         }
 
-        final manifest = File('$rootDir/manifest.json');
-        DirectoryUtil.createFile(
-          manifest,
-          jsonEncode({
-            'class': results.length,
-            'classes': results.map((e) => e.className).toString()
-          }),
-        );
+        writeManifest(rootDir, results);
       }
 
       return 0;
@@ -111,5 +98,15 @@ class Generate {
       );
       return 2;
     });
+  }
+
+  static void writeManifest(String directory, List<BaseClass> files) {
+    final manifest = File('$directory/generate_manifest.json');
+    DirectoryUtil.createFile(
+      manifest,
+      jsonEncode(
+        files.map((file) => file.manifest).toList(),
+      ),
+    );
   }
 }
