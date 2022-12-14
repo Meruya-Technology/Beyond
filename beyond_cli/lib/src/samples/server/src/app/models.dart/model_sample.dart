@@ -14,13 +14,14 @@ class ModelSample {
     for (var i = 0; i < properties.length; i++) {
       final property = properties[i];
 
-      /// If the property need to map to model, then import the model
+      /// If the property need to map to model, then import the required model
       if (property.mapToModel) {
         final file = TextUtil.snakeCase(
           property.childType ?? property.type,
         );
         import += "import '$file.dart';\n";
       }
+
       innerConstructors += '\tfinal ${property.type} ${property.name};\n';
       outterConstructors += '\t\trequired this.${property.name},';
       tempFromJson += fromJson(

@@ -9,6 +9,8 @@ import 'command/help.dart';
 class BeyondCommand {
   static Future<int> dispatchCommand(List<String> args) async {
     switch (args[0]) {
+      case '-v':
+        return await Version.print();
       case '--version':
         return await Version.print();
       case '-h':
