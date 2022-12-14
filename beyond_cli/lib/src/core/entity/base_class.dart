@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'base_class_property.dart';
 
 class BaseClass {

@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 import 'package:beyond_cli/src/core/command/help.dart';
-import 'package:beyond_cli/src/samples/server/src/app/models.dart/model_sample.dart';
+import 'package:beyond_cli/src/samples/server/src/app/models/model_sample.dart';
 import 'package:beyond_cli/src/utils/json_util.dart';
 import 'package:beyond_cli/src/utils/stdout_util.dart';
 
