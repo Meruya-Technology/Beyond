@@ -9,6 +9,7 @@ class Env {
   final String dbName;
   final String dbUsername;
   final String? dbPassword;
+  final String secretKey;
 
   Env({
     required this.port,
@@ -19,6 +20,7 @@ class Env {
     required this.dbName,
     required this.dbUsername,
     this.dbPassword,
+    required this.secretKey,
   });
 
   factory Env.fromJson(Map<dynamic, dynamic> json) => Env(
@@ -32,5 +34,6 @@ class Env {
         dbName: json['DB_NAME'] ?? 'database',
         dbUsername: json['DB_USERNAME'] ?? 'root',
         dbPassword: json['DB_PASSWORD'],
+        secretKey: json['SECRET_KEY'],
       );
 }
