@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'env.dart';
+import 'package:collection/collection.dart';
 
 class EnvUtil {
   static String get currentDirectory => Directory.current.path.toString();
@@ -23,7 +24,8 @@ class EnvUtil {
     final result = {};
     for (var c in sanitizedConfigs) {
       final newC = c.split('=');
-      result[newC[0]] = newC[1];
+      final lastIndex = newC.length - 1;
+      result[newC.first] = newC.getRange(1, lastIndex).join();
     }
     return Env.fromJson(result);
   }
