@@ -28,7 +28,7 @@ class EnvUtil {
         c.substring(0, separatorIndex).trim(),
         c.substring(separatorIndex + 1).trim()
       ];
-      result[newC.first] = newC;
+      result[newC.first] = newC.last;
     }
     return Env.fromJson(result);
   }
