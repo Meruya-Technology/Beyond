@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'env.dart';
-import 'package:collection/collection.dart';
 
 class EnvUtil {
   static String get currentDirectory => Directory.current.path.toString();
@@ -15,6 +14,7 @@ class EnvUtil {
     final ls = LineSplitter();
 
     /// Then split by line and sanitize if there is any abstract line of code
+    /// that doesnt using key = value format
     final configs = ls.convert(contents);
     final sanitizedConfigs = configs.where(
       (config) => config.contains('='),
@@ -23,9 +23,12 @@ class EnvUtil {
     /// Then construct from list of string into map, then into Env class
     final result = {};
     for (var c in sanitizedConfigs) {
-      final newC = c.split('=');
-      final lastIndex = newC.length - 1;
-      result[newC.first] = newC.getRange(1, lastIndex).join();
+      final separatorIndex = c.indexOf("=");
+      final newC = [
+        c.substring(0, separatorIndex).trim(),
+        c.substring(separatorIndex + 1).trim()
+      ];
+      result[newC.first] = newC;
     }
     return Env.fromJson(result);
   }
