@@ -1,10 +1,10 @@
 import 'package:shelf/shelf.dart';
 
-abstract class UseCase {
-  Future<Response> build(Request req);
+abstract class UseCase<T> {
+  Future<Response> build(T data);
 
-  Future<Response> execute(Request req) async {
-    return await build(req).catchError(
+  Future<Response> execute(T data) async {
+    return await build(data).catchError(
       (error) => handleError(error),
     );
   }

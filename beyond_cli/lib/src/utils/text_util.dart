@@ -45,4 +45,12 @@ class TextUtil {
     }
     return result;
   }
+
+  static String makePlural(String text) {
+    var lastText = text[text.length - 1];
+    if (lastText != 's') {
+      return '${text}s';
+    }
+    return text;
+  }
 }
