@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'env.dart';
+import '../core/entities/env.dart';
 
 class EnvUtil {
   static String get currentDirectory => Directory.current.path.toString();
