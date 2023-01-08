@@ -4,6 +4,9 @@ import '../../utils/data_util.dart';
 import '../../utils/mirror_util.dart';
 import 'base_model.dart';
 
+/// Beyond model enable class model to convert the data from class into map.
+/// So it can be jsonEncoded later for http json response, to use beyond model
+/// use `extends model` from intended class model
 class Model implements BaseModel {
   MirrorUtil get _mirror => MirrorUtil(this);
 
