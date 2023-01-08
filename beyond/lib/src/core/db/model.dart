@@ -13,6 +13,8 @@ class Model implements BaseModel {
     for (var variable in _mirror.variables) {
       /// Get field metadata
       final field = _mirror.getField(variable);
+
+      /// If the field is not hidden
       if (!(field?.isHidden ?? false)) {
         /// Construct variable name from field metadata (key), if its empty the
         /// default name will be the class variable name it self.
@@ -28,9 +30,12 @@ class Model implements BaseModel {
 
         /// Check if the value is eligible to put in json / map
         if (DataUtil.isJsonAble(variableValue)) {
-          payload[variableName] = variableValue.reflectee;
+          payload[variableName] =
+              variableValue.reflectee ?? field?.defaultValue;
         }
       }
+
+      /// If its hidden do nothing
     }
     return payload;
   }

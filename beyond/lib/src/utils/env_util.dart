@@ -1,14 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
-import '../core/entities/env.dart';
-
 class EnvUtil {
-  static String get currentDirectory => Directory.current.path.toString();
-  static String get env => '$currentDirectory/.env';
+  static String get env => '.env';
 
   /// This method will read from .env that located on the server/ root directory
-  static Future<Env> readEnv() async {
+  static Future<Map<dynamic, dynamic>> readEnv() async {
     /// First read the file string
     final contents = await File(env).readAsString();
     final ls = LineSplitter();
@@ -30,6 +27,6 @@ class EnvUtil {
       ];
       result[newC.first] = newC.last;
     }
-    return Env.fromJson(result);
+    return result;
   }
 }

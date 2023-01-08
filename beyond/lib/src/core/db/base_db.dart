@@ -1,5 +1,4 @@
-import '../entities/condition.dart';
-import '../entities/order_by.dart';
+import 'package:beyond/beyond.dart';
 
 abstract class BaseDB<M> {
   Future<List<Map<String, dynamic>?>?> select({
@@ -10,9 +9,12 @@ abstract class BaseDB<M> {
     List<OrderBy>? orders,
   });
 
-  Future<int> delete(List<Condition> conditions);
-
+  /// insert data from instance by converting it first into desired payload
   Future<int> insert();
 
+  /// update data from specific table using model instance + conditions
   Future<int> update(List<Condition> conditions);
+
+  /// delete data from specific table with conditions
+  Future<int> delete(List<Condition> conditions);
 }

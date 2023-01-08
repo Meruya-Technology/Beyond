@@ -19,6 +19,14 @@ class DB<M> implements BaseDB<M> {
   MirrorUtil get _mirror => MirrorUtil(model ?? M);
   DBUtil get _dbUtil => DBUtil(mirror: _mirror);
 
+  /// In order to use DB, it will needed to be initialize first. Because DB
+  /// require PostgreSQLConnection to be put inside singleton first
+  /// TODO : Initialize mechanism can be more independence
+  static Future<void> initialize(PostgreSQLConnection postgresql) async {
+    final getIt = GetIt.instance;
+    getIt.registerSingleton<PostgreSQLConnection>(postgresql);
+  }
+
   @override
   Future<int> insert() {
     final payload = _dbUtil.singleInsertPayload;
@@ -63,9 +71,7 @@ class DB<M> implements BaseDB<M> {
   }
 
   @override
-  Future<int> delete(
-    List<Condition> conditions,
-  ) {
+  Future<int> delete(List<Condition> conditions) {
     return _database.execute(
       QueryBuilder.delete(
         schema: _mirror.tableSchema,
