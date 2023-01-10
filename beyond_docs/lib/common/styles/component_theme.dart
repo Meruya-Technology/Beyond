@@ -46,7 +46,8 @@ class ComponentTheme {
       );
 
   DividerThemeData get dividerThemeData => DividerThemeData(
-        color: colorScheme.onBackground.withOpacity(0.25),
+        thickness: 1.5,
+        color: colorScheme.onBackground.withOpacity(0.10),
       );
 
   ChipThemeData get chipThemeData => ChipThemeData(

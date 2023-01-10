@@ -4,22 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../styles/component_theme.dart';
 
 class ThemeUtil {
-  /// Themes Mode
-  /// Note : in this getter color scheme binded manually and not retrieved
-  /// from Theme.of(context) because the color scheme is not yet binded to the
-  /// build tree. But after the main file using this themes it will be available
-  /// to retrieved from Theme.of(context)
-  /// ```dart
-  /// MaterialApp(
-  ///   title: 'Cart It Out',
-  ///   themeMode: ThemeMode.light,
-  ///   theme: provider.themeUtil.lightTheme,
-  ///   darkTheme: provider.themeUtil.darkTheme,
-  ///   routes: provider.routeUtil.routes,
-  ///   initialRoute: provider.routeUtil.initialRoute,
-  /// ),
-  /// ```
-
   ThemeData get lightTheme => ThemeData(
         colorScheme: lightColorScheme,
         useMaterial3: true,
@@ -78,7 +62,7 @@ class ThemeUtil {
       );
 
   /// Text Theme
-  TextTheme get lightTextTheme => GoogleFonts.interTextTheme().apply(
+  TextTheme get lightTextTheme => GoogleFonts.robotoTextTheme().apply(
         bodyColor: lightColorScheme.onBackground,
         displayColor: lightColorScheme.onBackground,
         decorationColor: lightColorScheme.onBackground,

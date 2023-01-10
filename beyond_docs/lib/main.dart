@@ -24,6 +24,7 @@ class MyApp extends ConsumerWidget {
       theme: provider.themeUtil.lightTheme,
       darkTheme: provider.themeUtil.darkTheme,
       initialRoute: RouteUtil.initialRoute,
+      debugShowCheckedModeBanner: false,
       routes: RouteUtil.routes,
     );
   }

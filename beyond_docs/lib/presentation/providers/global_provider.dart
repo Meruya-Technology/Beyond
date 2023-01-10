@@ -7,7 +7,7 @@ class GlobalProvicer extends ChangeNotifier {
   ThemeUtil get themeUtil => ThemeUtil();
   ThemeMode get themeMode => _themeMode;
 
-  var _themeMode = ThemeMode.dark;
+  var _themeMode = ThemeMode.light;
 
   /// Method section
   void siwtchBrightness() {
