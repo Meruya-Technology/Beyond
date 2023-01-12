@@ -1,7 +1,10 @@
 import 'package:beyond_docs/presentation/providers/home_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:markdown/markdown.dart' as md;
 
+import '../../common/core/code_element_builder.dart';
 import '../widgets/navigation_tile.dart';
 
 class HomePage extends ConsumerWidget {
@@ -17,7 +20,7 @@ class HomePage extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           buildNavBar(context, ref),
-          buildBody(context),
+          buildBody(context, ref),
         ],
       ),
     );
@@ -161,15 +164,66 @@ class HomePage extends ConsumerWidget {
     );
   }
 
-  Widget buildBody(BuildContext context) {
+  Widget buildBody(BuildContext context, WidgetRef ref) {
     return Expanded(
       child: LayoutBuilder(
         builder: (context, constraints) {
           return Align(
             alignment: Alignment.topCenter,
-            child: Container(
-              width: (constraints.maxWidth / 100 * 60),
-              child: Text('Body'),
+            child: FutureBuilder(
+              future: ref.watch(homeProvider).bodyMarkdown,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return SingleChildScrollView(
+                    child: Markdown(
+                      shrinkWrap: true,
+                      data: snapshot.data!,
+                      padding: EdgeInsets.symmetric(
+                        vertical: 16,
+                        horizontal: (constraints.maxWidth / 100 * 15),
+                      ),
+                      builders: {
+                        'code': CodeElementBuilder(),
+                      },
+                      styleSheet: MarkdownStyleSheet.fromTheme(
+                        Theme.of(context),
+                      ).copyWith(
+                        h1Padding: const EdgeInsets.only(
+                          top: 32,
+                          bottom: 8,
+                        ),
+                        h2Padding: const EdgeInsets.only(
+                          top: 32,
+                          bottom: 8,
+                        ),
+                        h3Padding: const EdgeInsets.only(
+                          top: 32,
+                          bottom: 8,
+                        ),
+                        h4Padding: const EdgeInsets.only(
+                          top: 32,
+                          bottom: 8,
+                        ),
+                        h5Padding: const EdgeInsets.only(
+                          top: 32,
+                          bottom: 8,
+                        ),
+                        h6Padding: const EdgeInsets.only(
+                          top: 32,
+                          bottom: 8,
+                        ),
+                        codeblockPadding: const EdgeInsets.symmetric(
+                          vertical: 12,
+                        ),
+                        p: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      selectable: true,
+                      extensionSet: md.ExtensionSet.gitHubWeb,
+                    ),
+                  );
+                }
+                return const SizedBox.shrink();
+              },
             ),
           );
         },
