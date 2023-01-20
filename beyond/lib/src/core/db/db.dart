@@ -19,9 +19,6 @@ class DB<M> implements BaseDB<M> {
   MirrorUtil get _mirror => MirrorUtil(model ?? M);
   DBUtil get _dbUtil => DBUtil(mirror: _mirror);
 
-  /// In order to use DB, it will needed to be initialize first. Because DB
-  /// require PostgreSQLConnection to be put inside singleton first
-  /// TODO : Initialize mechanism can be more independence
   static Future<void> initialize(PostgreSQLConnection postgresql) async {
     final getIt = GetIt.instance;
     getIt.registerSingleton<PostgreSQLConnection>(postgresql);
@@ -40,7 +37,6 @@ class DB<M> implements BaseDB<M> {
     );
   }
 
-  /// TODO : support join operation, smart result mapper
   @override
   Future<List<Map<String, dynamic>?>?> select({
     List<Condition>? conditions,
@@ -63,9 +59,8 @@ class DB<M> implements BaseDB<M> {
         results.map((result) => result[_mirror.tableName]).toList();
 
     /// Convert to json able result
-    final convertedResult = newResults.map((nr) {
-      final result = _dbUtil.mapSelectOutput(nr);
-      return result;
+    final convertedResult = newResults.map((newResult) {
+      return _dbUtil.mapSelectOutput(newResult);
     }).toList();
     return convertedResult;
   }
