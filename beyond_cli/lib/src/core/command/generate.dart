@@ -4,8 +4,10 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:beyond_cli/src/core/command/help.dart';
 import 'package:beyond_cli/src/samples/server/src/app/models/model_sample.dart';
+import 'package:beyond_cli/src/samples/server/src/app/models/modelv2_sample.dart';
 import 'package:beyond_cli/src/utils/json_util.dart';
 import 'package:beyond_cli/src/utils/stdout_util.dart';
+import 'package:beyond_cli/src/utils/text_util.dart';
 
 import '../../utils/directory_util.dart';
 import '../entity/base_class.dart';
@@ -35,6 +37,16 @@ class Generate {
           withoutClassName ? null : args[2],
           path,
           prefix,
+        );
+      case 'modelv2':
+        if (args.length < 3) {
+          return Help.generate(
+            additionalMessage: 'Filename is required <Proppercase>',
+          );
+        }
+        return Generate.modelV2(
+          args[2],
+          path,
         );
       case '-h':
         return Help.generate();
@@ -98,6 +110,25 @@ class Generate {
       );
       return 2;
     });
+  }
+
+  static Future<int> modelV2(
+    String className,
+    String? path,
+  ) async {
+    final rootDir = Directory.current.path;
+    final fileName = TextUtil.snakeCase(
+      className,
+    );
+    final file = File('$rootDir/$fileName.dart');
+    final content = ModelV2Sample.content(
+      className,
+    );
+    DirectoryUtil.createFile(
+      file,
+      content,
+    );
+    return 0;
   }
 
   static void writeManifest(String directory, List<BaseClass> files) {
