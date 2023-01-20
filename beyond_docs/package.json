@@ -1,0 +1,19 @@
+{
+  "name": "beyond_docs",
+  "version": "0.0.1",
+  "description": "Documentation for beyond dart framework",
+  "main": "index.js",
+  "authors": {
+    "name": "Meruya Technology",
+    "email": "support@meruyatechnology.com"
+  },
+  "repository": "https://github.com/Meruya-Techhnology/beyond/Beyond documentation",
+  "scripts": {
+    "dev": "vuepress dev src",
+    "build": "vuepress build src"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.5.3"
+  }
+}
