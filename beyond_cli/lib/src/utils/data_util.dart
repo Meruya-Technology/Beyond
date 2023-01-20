@@ -27,10 +27,10 @@ class DataUtil {
   static String getChildType(
     dynamic value,
     String key, {
-    String? prefix,
+    String? suffix,
   }) {
     final newTypeName =
-        (prefix != null) ? '$key${TextUtil.upperCamelCase(prefix)}' : key;
+        (suffix != null) ? '$key${TextUtil.upperCamelCase(suffix)}' : key;
     if (value is Map) {
       return TextUtil.upperCamelCase(newTypeName);
     } else if (value is List) {

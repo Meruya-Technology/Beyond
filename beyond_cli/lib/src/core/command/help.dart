@@ -31,7 +31,7 @@ class Help {
       '      [FirstClassName]     Class / file name, use UpperCamelCase. The output file will using snake_case\n'
       '                           meanwhile the ouput file classname will use UpperCamelCase\n\n'
       '-p, --path <path to file>  Path to json file [Required]\n\n'
-      '    --prefix <prefix>      Prefix for file & class name (lowercase). default value is model\n\n'
+      '    --suffix <suffix>      Suffix for file & class name (lowercase). default value is model\n\n'
       'Run "beyond help" to see global options',
     );
     return Future.value(0);

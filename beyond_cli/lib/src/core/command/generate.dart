@@ -17,12 +17,12 @@ class Generate {
     var parser = ArgParser();
     parser.addFlag('help', abbr: 'h', defaultsTo: null);
     parser.addOption('path', defaultsTo: null);
-    parser.addOption('prefix', defaultsTo: 'model');
+    parser.addOption('suffix', defaultsTo: 'model');
     final parsedArgs = parser.parse(args);
 
     /// Declare default value for path
     final path = parsedArgs['path'];
-    final prefix = parsedArgs['prefix'];
+    final suffix = parsedArgs['suffix'];
 
     if (args.length < 2) return Help.generate();
     switch (args[1]) {
@@ -36,7 +36,7 @@ class Generate {
         return Generate.model(
           withoutClassName ? null : args[2],
           path,
-          prefix,
+          suffix,
         );
       case 'modelv2':
         if (args.length < 3) {
@@ -63,10 +63,10 @@ class Generate {
   static Future<int> model(
     String? className,
     String? path,
-    String? prefix,
+    String? suffix,
   ) async {
     final jsonUtil = JsonUtil(
-      prefix: prefix,
+      suffix: suffix,
     );
     final rootDir = Directory.current.path;
     final filePath = '$rootDir/$path';

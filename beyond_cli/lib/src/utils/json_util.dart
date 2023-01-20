@@ -6,10 +6,10 @@ import 'package:beyond_cli/src/utils/data_util.dart';
 import 'package:beyond_cli/src/utils/text_util.dart';
 
 class JsonUtil {
-  final String? prefix;
+  final String? suffix;
 
   JsonUtil({
-    this.prefix,
+    this.suffix,
   });
 
   List<BaseClass> classes = [];
@@ -28,7 +28,7 @@ class JsonUtil {
     String className,
     Map<dynamic, dynamic> parsedJson,
   ) {
-    final newClassName = (prefix != null) ? '${className}_$prefix' : className;
+    final newClassName = (suffix != null) ? '${className}_$suffix' : className;
 
     /// Declare first file & class name
     final fileName = TextUtil.snakeCase(newClassName);
@@ -66,7 +66,7 @@ class JsonUtil {
       var childType = DataUtil.getChildType(
         json[key],
         key,
-        prefix: prefix,
+        suffix: suffix,
       );
 
       /// Get the property key using proper case
@@ -125,7 +125,7 @@ class JsonUtil {
 
   /// Convert List<anything> into class information
   void listToClassInformation(String parentKey, List<dynamic> list) {
-    final newClassName = (prefix != null) ? '${parentKey}_$prefix' : parentKey;
+    final newClassName = (suffix != null) ? '${parentKey}_$suffix' : parentKey;
 
     /// Declare first file & class name
     final fileName = TextUtil.snakeCase(newClassName);
@@ -145,7 +145,7 @@ class JsonUtil {
 
   /// Convert map into class information
   void mapToClassInformation(String key, Map<dynamic, dynamic> json) {
-    final newClassName = (prefix != null) ? '${key}_$prefix' : key;
+    final newClassName = (suffix != null) ? '${key}_$suffix' : key;
 
     /// Declare first file & class name
     final fileName = TextUtil.snakeCase(newClassName);
