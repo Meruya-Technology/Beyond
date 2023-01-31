@@ -19,10 +19,7 @@ dependencies:
   encrypt: ^5.0.1
   intl: ^0.17.0
   shelf_hotreload: ^1.3.0
-  beyond:
-    git:
-      url: https://github.com/Meruya-Techhnology/Beyond.git
-      path: beyond
+  beyond: ^0.0.1
   shared:
     path: ../shared
 
