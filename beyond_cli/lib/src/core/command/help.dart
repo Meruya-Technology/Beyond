@@ -27,6 +27,8 @@ class Help {
       'Generate a new Beyond file\n'
       'Usage: dart generate [argument] --path <path to file>\n'
       '-h, help                   Print this usage information\n'
+      '    modelv2                Generate beyond model file\n\n'
+      '      [FileName]           Filename use proppercase\n\n'
       '    model                  Generate model file\n\n'
       '      [FirstClassName]     Class / file name, use UpperCamelCase. The output file will using snake_case\n'
       '                           meanwhile the ouput file classname will use UpperCamelCase\n\n'

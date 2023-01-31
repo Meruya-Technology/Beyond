@@ -1,9 +1,7 @@
-## 1.0.0 - 18 December 2022
+## 0.0.1 - 31 January 2023
 - Initial features
 	 - Create command
         - Project
      - Generate command
         - Model
-        - Controller
-        - Usecase
-        - Error handler
+        - Modelv2
