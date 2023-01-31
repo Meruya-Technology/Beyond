@@ -1,6 +1,6 @@
 name: beyond_cli
 description: A simple command line interface, for initializing Fullstack flutter project (Beyond)
-version: 1.0.0
+version: 0.0.1
 homepage: https://github.com/Meruya-Techhnology/Beyond/tree/main/beyond_cli
 
 environment:
