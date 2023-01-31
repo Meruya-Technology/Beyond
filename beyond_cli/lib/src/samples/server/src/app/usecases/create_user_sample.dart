@@ -1,5 +1,5 @@
 class CreateUserSample {
-  String get content => '''
+  static String get content => '''
 import 'dart:convert';
 
 import 'package:beyond/beyond.dart';

@@ -1,5 +1,5 @@
 class DeleteUserSample {
-  String get content => '''
+  static String get content => '''
 import 'package:beyond/beyond.dart';
 import 'package:shelf/shelf.dart';
 

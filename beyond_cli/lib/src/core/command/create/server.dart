@@ -5,7 +5,10 @@ import 'package:beyond_cli/src/samples/server/pubspec_sample.dart';
 import 'package:beyond_cli/src/samples/server/src/app/api_sample.dart';
 import 'package:beyond_cli/src/samples/server/src/app/controllers/user_controller_sample.dart';
 import 'package:beyond_cli/src/samples/server/src/app/http_sample.dart';
+import 'package:beyond_cli/src/samples/server/src/app/usecases/create_user_sample.dart';
+import 'package:beyond_cli/src/samples/server/src/app/usecases/delete_user_sample.dart';
 import 'package:beyond_cli/src/samples/server/src/app/usecases/retrieve_user_sample.dart';
+import 'package:beyond_cli/src/samples/server/src/app/usecases/update_user_sample.dart';
 import 'package:beyond_cli/src/samples/server/src/utils/custom_error_handler_sample.dart';
 import 'package:beyond_cli/src/samples/server/src/utils/database_util_sample.dart';
 import 'package:beyond_cli/src/samples/server/src/utils/postgresql_sample.dart';
@@ -24,7 +27,7 @@ class Server {
     await writeCustomErrorHandler(serverDirectory);
     await writeApi(serverDirectory);
     await writeHttp(serverDirectory);
-    await writeGetUser(serverDirectory);
+    await writeModels(serverDirectory);
     await writeUserController(serverDirectory);
     await updateDependencies(serverDirectory);
   }
@@ -106,11 +109,30 @@ class Server {
     DirectoryUtil.createFile(file, template);
   }
 
-  static Future<void> writeGetUser(String serverDirectory) async {
-    /// Write new Yaml, using booted template
-    final file = File('$serverDirectory/lib/src/app/usecases/get_user.dart');
-    final template = RetrieveUserSample.content;
-    DirectoryUtil.createFile(file, template);
+  static Future<void> writeModels(String serverDirectory) async {
+    final createUser = File(
+      '$serverDirectory/lib/src/app/usecases/retrieve_user.dart',
+    );
+    final createUserScript = CreateUserSample.content;
+    DirectoryUtil.createFile(createUser, createUserScript);
+
+    final retrieveUser = File(
+      '$serverDirectory/lib/src/app/usecases/retrieve_user.dart',
+    );
+    final retrieveUserScript = RetrieveUserSample.content;
+    DirectoryUtil.createFile(retrieveUser, retrieveUserScript);
+
+    final updateUser = File(
+      '$serverDirectory/lib/src/app/usecases/update_user.dart',
+    );
+    final updateUserScript = UpdateUserSample.content;
+    DirectoryUtil.createFile(updateUser, updateUserScript);
+
+    final deleteUser = File(
+      '$serverDirectory/lib/src/app/usecases/delete_user.dart',
+    );
+    final deleteUserScript = DeleteUserSample.content;
+    DirectoryUtil.createFile(deleteUser, deleteUserScript);
   }
 
   static Future<void> writeUserController(String serverDirectory) async {

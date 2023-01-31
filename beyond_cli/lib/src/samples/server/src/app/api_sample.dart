@@ -9,8 +9,11 @@ import 'controllers/user_controller.dart';
 /// also we can add a suffix or global handler, depend on the purposes
 
 class Api extends BaseApi {
-  Router get getRoutes =>
-      baseRouter..get('/user/<data>', UserController.getUser);
+  Router get getRoutes => baseRouter
+    ..get('/user/<data>', UserController.getUser)
+    ..post('/user/register', UserController.createUser)
+    ..delete('/user/<id>', UserController.deleteUser)
+    ..put('/user/<id>', UserController.updateUser);
 }
 ''';
 }
