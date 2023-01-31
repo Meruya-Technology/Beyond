@@ -6,10 +6,10 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_hotreload/shelf_hotreload.dart';
 
-import 'package:../lib/src/app/api.dart';
-import 'package:../lib/src/app/http.dart';
-import 'package:../lib/src/utils/custom_error_handler.dart';
-import 'package:../lib/src/utils/database_util.dart';
+import 'package:server/src/app/api.dart';
+import 'package:server/src/app/http.dart';
+import 'package:server/src/utils/custom_error_handler.dart';
+import 'package:server/src/utils/database_util.dart';
 
 void main(List<String> args) async {
   /// Dependency injector instance

@@ -5,6 +5,7 @@ import 'package:beyond_cli/src/samples/server/pubspec_sample.dart';
 import 'package:beyond_cli/src/samples/server/src/app/api_sample.dart';
 import 'package:beyond_cli/src/samples/server/src/app/controllers/user_controller_sample.dart';
 import 'package:beyond_cli/src/samples/server/src/app/http_sample.dart';
+import 'package:beyond_cli/src/samples/server/src/app/models/user_sample.dart';
 import 'package:beyond_cli/src/samples/server/src/app/usecases/create_user_sample.dart';
 import 'package:beyond_cli/src/samples/server/src/app/usecases/delete_user_sample.dart';
 import 'package:beyond_cli/src/samples/server/src/app/usecases/retrieve_user_sample.dart';
@@ -28,6 +29,7 @@ class Server {
     await writeApi(serverDirectory);
     await writeHttp(serverDirectory);
     await writeModels(serverDirectory);
+    await writeUseCases(serverDirectory);
     await writeUserController(serverDirectory);
     await updateDependencies(serverDirectory);
   }
@@ -111,7 +113,15 @@ class Server {
 
   static Future<void> writeModels(String serverDirectory) async {
     final createUser = File(
-      '$serverDirectory/lib/src/app/usecases/retrieve_user.dart',
+      '$serverDirectory/lib/src/app/models/user.dart',
+    );
+    final createUserScript = UserSample.content;
+    DirectoryUtil.createFile(createUser, createUserScript);
+  }
+
+  static Future<void> writeUseCases(String serverDirectory) async {
+    final createUser = File(
+      '$serverDirectory/lib/src/app/usecases/create_user.dart',
     );
     final createUserScript = CreateUserSample.content;
     DirectoryUtil.createFile(createUser, createUserScript);

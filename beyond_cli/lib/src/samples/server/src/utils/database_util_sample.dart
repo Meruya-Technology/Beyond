@@ -1,15 +1,16 @@
 class DatabaseUtilSample {
   static String get content => '''
-import 'dart:io';
-
+import 'package:postgres/postgres.dart';
 import 'postgresql.dart';
 
 class DatabaseUtil {
-  Future<void> openConnection() async {
+  Future<PostgreSQLConnection> openConnection() async {
     final database = Postgresql.credential;
-    await database.open().then(
-      (value) {
-        stdout.writeln('Database connection successfully open');
+    return await database.open().then(
+      (_) => database,
+      onError: (error) {
+        database.close();
+        throw Exception('Cannot open database connection');
       },
     );
   }

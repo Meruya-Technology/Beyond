@@ -1,5 +1,5 @@
 class UserSample {
-  static String content(String className) => '''
+  static String get content => '''
 import 'package:beyond/beyond.dart';
 
 /// Table meta data, name, schema

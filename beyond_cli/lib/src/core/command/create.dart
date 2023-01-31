@@ -37,11 +37,11 @@ class Create {
     ).then(
       (ProcessResult result) async {
         progressStreamController.add(25);
-        await Server.project(projectDirectory);
+        await Shared.project(projectDirectory);
         progressStreamController.add(50);
         await Client.project(projectDirectory);
         progressStreamController.add(75);
-        await Shared.project(projectDirectory);
+        await Server.project(projectDirectory);
         progressStreamController.add(100);
       },
     );

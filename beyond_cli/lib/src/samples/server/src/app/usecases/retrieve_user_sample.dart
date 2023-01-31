@@ -1,20 +1,50 @@
 class RetrieveUserSample {
   static String get content => '''
 import 'package:beyond/beyond.dart';
+import 'package:server/src/app/models/user.dart';
 import 'package:shelf/shelf.dart';
 
-class GetUser extends UseCase {
+class RetrieveUser extends UseCase<Request, Response> {
   final ErrorHandler errorHandler;
 
-  GetUser({
+  RetrieveUser({
     required this.errorHandler,
   });
 
   @override
-  Future<Response> build(Request req) async {
-    return Response(
+  Future<Response> build(Request data) async {
+    /// Map json to user entity
+
+    final results = await DB<User>().select(
+      conditions: [
+        Condition(
+          field: 'is_active',
+          value: true,
+        )
+      ],
+      orders: [
+        OrderBy(
+          field: 'created_at',
+        )
+      ],
+    );
+
+    final classResults = results?.map(
+      (result) => (result != null) ? User.fromJson(result) : null,
+    );
+
+    classResults?.forEach(
+      (classResult) {
+        print(classResult?.toMap());
+      },
+    );
+
+    return JsonResponse(
       200,
-      body: 'Success',
+      body: {
+        'message': 'new success',
+        'result': results,
+      },
     );
   }
 
