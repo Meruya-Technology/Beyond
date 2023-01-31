@@ -5,7 +5,7 @@ import 'package:beyond_cli/src/samples/server/pubspec_sample.dart';
 import 'package:beyond_cli/src/samples/server/src/app/api_sample.dart';
 import 'package:beyond_cli/src/samples/server/src/app/controllers/user_controller_sample.dart';
 import 'package:beyond_cli/src/samples/server/src/app/http_sample.dart';
-import 'package:beyond_cli/src/samples/server/src/app/usecases/get_user_sample.dart';
+import 'package:beyond_cli/src/samples/server/src/app/usecases/retrieve_user_sample.dart';
 import 'package:beyond_cli/src/samples/server/src/utils/custom_error_handler_sample.dart';
 import 'package:beyond_cli/src/samples/server/src/utils/database_util_sample.dart';
 import 'package:beyond_cli/src/samples/server/src/utils/postgresql_sample.dart';
@@ -109,7 +109,7 @@ class Server {
   static Future<void> writeGetUser(String serverDirectory) async {
     /// Write new Yaml, using booted template
     final file = File('$serverDirectory/lib/src/app/usecases/get_user.dart');
-    final template = GetUserSample.content;
+    final template = RetrieveUserSample.content;
     DirectoryUtil.createFile(file, template);
   }
 

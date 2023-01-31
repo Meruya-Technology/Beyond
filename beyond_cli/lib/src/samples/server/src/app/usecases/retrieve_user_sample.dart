@@ -1,4 +1,4 @@
-class GetUserSample {
+class RetrieveUserSample {
   static String get content => '''
 import 'package:beyond/beyond.dart';
 import 'package:shelf/shelf.dart';
