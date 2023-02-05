@@ -3,7 +3,7 @@ import 'dart:io';
 import '../../utils/stdout_util.dart';
 
 class Version {
-  static const currentVersion = '1.0.0';
+  static const currentVersion = '0.0.2';
 
   static Future<int> print() {
     stdout.writeln(

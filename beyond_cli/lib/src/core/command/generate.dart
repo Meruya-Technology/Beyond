@@ -16,7 +16,7 @@ class Generate {
   static Future<int> dispatch(List<String> args) async {
     var parser = ArgParser();
     parser.addFlag('help', abbr: 'h', defaultsTo: null);
-    parser.addOption('path', defaultsTo: null);
+    parser.addOption('path', abbr: 'p', defaultsTo: null);
     parser.addOption('suffix', defaultsTo: 'model');
     final parsedArgs = parser.parse(args);
 

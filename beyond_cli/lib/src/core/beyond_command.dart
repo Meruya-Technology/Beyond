@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:beyond_cli/src/core/command/version.dart';
 
+import '../utils/stdout_util.dart';
 import 'command/create.dart';
 import 'command/generate.dart';
 import 'command/help.dart';
@@ -11,7 +13,7 @@ class BeyondCommand {
     switch (args[0]) {
       case '-v':
         return await Version.print();
-      case '--version':
+      case 'version':
         return await Version.print();
       case '-h':
         return await Help.global();
@@ -22,6 +24,12 @@ class BeyondCommand {
       case 'generate':
         return await Generate.dispatch(args);
       default:
+        stdout.writeln(
+          StdoutUtil.printColor(
+            'command not supported $args',
+            code: '196',
+          ),
+        );
         return 2;
     }
   }

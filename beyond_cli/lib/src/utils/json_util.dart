@@ -83,7 +83,7 @@ class JsonUtil {
 
       /// Mark the property child list or map
       var isListOrMap = DataUtil.isListOrMap(
-        json[key] is List ? json[key][0] : json[key],
+        (json[key] is List && json[key].isNotEmpty) ? json[key][0] : json[key],
       );
 
       /// Construct property to be added to properties
@@ -104,7 +104,7 @@ class JsonUtil {
       properties.add(property);
 
       /// Then check if the child is a Map<String, dynamic> repeat the process
-      if (isListOrMap) {
+      if (isListOrMap && childType != 'Null') {
         repeat(json, key);
       }
     }

@@ -31,9 +31,9 @@ class DataUtil {
   }) {
     final newTypeName =
         (suffix != null) ? '$key${TextUtil.upperCamelCase(suffix)}' : key;
-    if (value is Map) {
+    if (value is Map && value.isNotEmpty) {
       return TextUtil.upperCamelCase(newTypeName);
-    } else if (value is List) {
+    } else if (value is List && value.isNotEmpty) {
       final firstElement = value.first;
       return (firstElement is Map)
           ? TextUtil.upperCamelCase(newTypeName)
@@ -44,9 +44,9 @@ class DataUtil {
 
   static bool isModelAble(dynamic value, String childType) {
     stdout.writeln('${value.runtimeType} $childType');
-    if (value is Map) {
+    if (value is Map && value.isNotEmpty) {
       return true;
-    } else if (value is List) {
+    } else if (value is List && value.isNotEmpty) {
       if (childType == 'Null' ||
           childType == 'int' ||
           childType == 'String' ||
