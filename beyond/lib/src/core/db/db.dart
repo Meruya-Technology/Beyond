@@ -58,15 +58,10 @@ class DB<M> implements BaseDB<M> {
               },
             );
           }
-          if (records != payloads.length) {
-            connection.cancelTransaction(
-              reason: 'Failed to insert multiple records at once',
-            );
-          }
           return Future.value(records);
         },
       );
-      return result;
+      return result ?? 0;
     } else {
       final mirror = MirrorUtil(model ?? M);
       final dbUtil = DBUtil(
@@ -82,8 +77,6 @@ class DB<M> implements BaseDB<M> {
         substitutionValues: payload,
       );
     }
-
-    return Future.value(0);
   }
 
   @override
