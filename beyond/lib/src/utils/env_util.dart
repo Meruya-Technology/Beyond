@@ -6,8 +6,14 @@ class EnvUtil {
 
   /// This method will read from .env that located on the server/ root directory
   static Future<Map<dynamic, dynamic>> readEnv() async {
+    final mainPath = Platform.script.path;
+    final paths = mainPath.split('/');
+    final excludedPaths = paths.getRange(0, paths.length - 2);
+    final projectPath = excludedPaths.join('/');
+    final envPath = '$projectPath/$env';
+
     /// First read the file string
-    final contents = await File(env).readAsString();
+    final contents = await File(envPath).readAsString();
     final ls = LineSplitter();
 
     /// Then split by line and sanitize if there is any abstract line of code

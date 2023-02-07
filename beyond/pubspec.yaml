@@ -1,6 +1,6 @@
 name: beyond
 description: A dart mini framework for fullstack project
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/Meruya-Techhnology/Beyond/tree/main/beyond
 
 environment:

@@ -16,8 +16,6 @@ class DB<M> implements BaseDB<M> {
   });
 
   PostgreSQLConnection get _database => GetIt.instance<PostgreSQLConnection>();
-  MirrorUtil get _mirror => MirrorUtil(model ?? M);
-  DBUtil get _dbUtil => DBUtil(mirror: _mirror);
 
   static Future<void> initialize(PostgreSQLConnection postgresql) async {
     final getIt = GetIt.instance;
@@ -25,13 +23,79 @@ class DB<M> implements BaseDB<M> {
   }
 
   @override
+  Future<int> create() async {
+    if (model is List) {
+      final models = model as List;
+      final mirror = MirrorUtil(models.first);
+      final payloads = List<Map<String, dynamic>>.generate(
+        models.length,
+        (index) {
+          final dbUtil = DBUtil(
+            mirror: MirrorUtil(models[index]),
+          );
+          return dbUtil.singleInsertPayload;
+        },
+      );
+
+      final result = await _database.transaction(
+        (connection) {
+          var records = 0;
+          for (var payload in payloads) {
+            final query = QueryBuilder.insert(
+              payload,
+              schema: mirror.tableSchema,
+              tableName: mirror.tableName,
+            );
+            connection.execute(query, substitutionValues: payload).then(
+              (value) {
+                records += value;
+              },
+            ).catchError(
+              (onError) {
+                connection.cancelTransaction(
+                  reason: 'Error occured when inserting multipe records',
+                );
+              },
+            );
+          }
+          if (records != payloads.length) {
+            connection.cancelTransaction(
+              reason: 'Failed to insert multiple records at once',
+            );
+          }
+          return Future.value(records);
+        },
+      );
+      return result;
+    } else {
+      final mirror = MirrorUtil(model ?? M);
+      final dbUtil = DBUtil(
+        mirror: MirrorUtil(mirror),
+      );
+      final payload = dbUtil.singleInsertPayload;
+      return _database.execute(
+        QueryBuilder.insert(
+          payload,
+          schema: mirror.tableSchema,
+          tableName: mirror.tableName,
+        ),
+        substitutionValues: payload,
+      );
+    }
+
+    return Future.value(0);
+  }
+
+  @override
   Future<int> insert() {
-    final payload = _dbUtil.singleInsertPayload;
+    final mirror = MirrorUtil(model ?? M);
+    final dbUtil = DBUtil(mirror: mirror);
+    final payload = dbUtil.singleInsertPayload;
     return _database.execute(
       QueryBuilder.insert(
         payload,
-        schema: _mirror.tableSchema,
-        tableName: _mirror.tableName,
+        schema: mirror.tableSchema,
+        tableName: mirror.tableName,
       ),
       substitutionValues: payload,
     );
@@ -42,38 +106,45 @@ class DB<M> implements BaseDB<M> {
     List<Condition>? conditions,
     List<OrderBy>? orders,
   }) async {
+    final mirror = MirrorUtil(model ?? M);
+    final dbUtil = DBUtil(mirror: mirror);
     final results = await _database.mappedResultsQuery(
       QueryBuilder.select(
-        tableName: _mirror.tableName,
-        schema: _mirror.tableSchema,
+        tableName: mirror.tableName,
+        schema: mirror.tableSchema,
         conditions: conditions,
         orderBy: orders,
       ),
-      substitutionValues: _dbUtil.mapConditionToPayload(
+      substitutionValues: dbUtil.mapConditionToPayload(
         conditions,
       ),
     );
 
     /// Map List<Map<String, Map<String, dynamic>>> to List<Map<String, dynamic>>
-    final newResults =
-        results.map((result) => result[_mirror.tableName]).toList();
+    final newResults = results.map(
+      (result) => result[mirror.tableName],
+    );
 
     /// Convert to json able result
-    final convertedResult = newResults.map((newResult) {
-      return _dbUtil.mapSelectOutput(newResult);
-    }).toList();
-    return convertedResult;
+    final convertedResult = newResults.map(
+      (newResult) {
+        return dbUtil.mapSelectOutput(newResult);
+      },
+    );
+    return convertedResult.toList();
   }
 
   @override
   Future<int> delete(List<Condition> conditions) {
+    final mirror = MirrorUtil(model ?? M);
+    final dbUtil = DBUtil(mirror: mirror);
     return _database.execute(
       QueryBuilder.delete(
-        schema: _mirror.tableSchema,
-        tableName: _mirror.tableName,
+        schema: mirror.tableSchema,
+        tableName: mirror.tableName,
         conditions: conditions,
       ),
-      substitutionValues: _dbUtil.mapConditionToPayload(
+      substitutionValues: dbUtil.mapConditionToPayload(
         conditions,
       ),
     );
@@ -81,17 +152,19 @@ class DB<M> implements BaseDB<M> {
 
   @override
   Future<int> update(List<Condition> conditions) {
-    final payload = _dbUtil.updatePayload;
+    final mirror = MirrorUtil(model ?? M);
+    final dbUtil = DBUtil(mirror: mirror);
+    final payload = dbUtil.updatePayload;
     return _database.execute(
       QueryBuilder.update(
         payload,
-        schema: _mirror.tableSchema,
-        tableName: _mirror.tableName,
+        schema: mirror.tableSchema,
+        tableName: mirror.tableName,
         conditions: conditions,
       ),
       substitutionValues: payload
         ..addAll(
-          _dbUtil.mapConditionToPayload(
+          dbUtil.mapConditionToPayload(
             conditions,
           )!,
         ),

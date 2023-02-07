@@ -9,6 +9,10 @@ abstract class BaseDB<M> {
     List<OrderBy>? orders,
   });
 
+  /// Create single or multiple record into database straight from entity or
+  /// List of entity
+  Future<int> create();
+
   /// insert data from instance by converting it first into desired payload
   Future<int> insert();
 
