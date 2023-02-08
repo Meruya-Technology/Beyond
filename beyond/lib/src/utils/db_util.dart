@@ -32,7 +32,8 @@ class DBUtil {
 
       /// If field is fillable then add them to payload
       if (field?.isFillable ?? true) {
-        payload[variableName] = variableValue.reflectee;
+        final dbField = field?.field ?? variableName;
+        payload[dbField] = variableValue.reflectee;
       }
     }
     return payload;

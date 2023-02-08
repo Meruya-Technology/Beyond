@@ -3,6 +3,7 @@
 - Fix env path
 - Change DB insert, to DB create
 - Update DB for multiple insert records
+- Fix override field name
 
 ## 0.0.1
 
