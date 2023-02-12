@@ -4,6 +4,7 @@
 - Change DB insert, to DB create
 - Update DB for multiple insert records
 - Fix override field name
+- Fix wrong fromJson binding on model sample 
 
 ## 0.0.1
 

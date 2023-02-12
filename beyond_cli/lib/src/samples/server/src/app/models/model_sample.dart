@@ -85,7 +85,7 @@ class ModelSample {
     if (mapAsModel) {
       if (isAList) {
         return '''$name : $type.from(json['$jsonKey'].map(
-        (json) => $childType.fromJson(json['$jsonKey']),),),''';
+        (json) => $childType.fromJson(json),),),''';
       } else {
         return '''$name : $childType.fromJson(json),''';
       }
