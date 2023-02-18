@@ -13,9 +13,6 @@ abstract class BaseDB<M> {
   /// List of entity
   Future<int> create();
 
-  /// insert data from instance by converting it first into desired payload
-  Future<int> insert();
-
   /// update data from specific table using model instance + conditions
   Future<int> update(List<Condition> conditions);
 

@@ -63,7 +63,7 @@ class DB<M> implements BaseDB<M> {
     } else {
       final mirror = MirrorUtil(model ?? M);
       final dbUtil = DBUtil(
-        mirror: MirrorUtil(mirror),
+        mirror: mirror,
       );
       final payload = dbUtil.singleInsertPayload;
       return _database.execute(
@@ -75,21 +75,6 @@ class DB<M> implements BaseDB<M> {
         substitutionValues: payload,
       );
     }
-  }
-
-  @override
-  Future<int> insert() {
-    final mirror = MirrorUtil(model ?? M);
-    final dbUtil = DBUtil(mirror: mirror);
-    final payload = dbUtil.singleInsertPayload;
-    return _database.execute(
-      QueryBuilder.insert(
-        payload,
-        schema: mirror.tableSchema,
-        tableName: mirror.tableName,
-      ),
-      substitutionValues: payload,
-    );
   }
 
   @override
