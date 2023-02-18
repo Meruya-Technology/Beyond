@@ -38,19 +38,17 @@ class DB<M> implements BaseDB<M> {
       );
 
       final result = await _database.transaction(
-        (connection) {
-          var records = 0;
+        (connection) async {
+          int records = 0;
           for (var payload in payloads) {
             final query = QueryBuilder.insert(
               payload,
               schema: mirror.tableSchema,
               tableName: mirror.tableName,
             );
-            connection.execute(query, substitutionValues: payload).then(
-              (value) {
-                records += 1;
-              },
-            ).catchError(
+            records += await connection
+                .execute(query, substitutionValues: payload)
+                .catchError(
               (onError) {
                 connection.cancelTransaction(
                   reason: 'Error occured when inserting multipe records',
