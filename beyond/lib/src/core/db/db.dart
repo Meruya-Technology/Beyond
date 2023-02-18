@@ -23,7 +23,9 @@ class DB<M> implements BaseDB<M> {
   }
 
   @override
-  Future<int> create() async {
+  Future<int> create({
+    Function(PostgreSQLExecutionContext connection, int rows)? trxCallback,
+  }) async {
     if (model is List) {
       final models = model as List;
       final mirror = MirrorUtil(models.first);
@@ -48,7 +50,7 @@ class DB<M> implements BaseDB<M> {
             );
             connection.execute(query, substitutionValues: payload).then(
               (value) {
-                records += value;
+                records += 1;
               },
             ).catchError(
               (onError) {
@@ -58,6 +60,12 @@ class DB<M> implements BaseDB<M> {
               },
             );
           }
+
+          /// Add slot for callback
+          trxCallback?.call(
+            connection,
+            records,
+          );
           return Future.value(records);
         },
       );
