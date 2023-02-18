@@ -23,9 +23,7 @@ class DB<M> implements BaseDB<M> {
   }
 
   @override
-  Future<int> create({
-    Function(PostgreSQLExecutionContext connection, int rows)? trxCallback,
-  }) async {
+  Future<int> create() async {
     if (model is List) {
       final models = model as List;
       final mirror = MirrorUtil(models.first);
@@ -60,12 +58,6 @@ class DB<M> implements BaseDB<M> {
               },
             );
           }
-
-          /// Add slot for callback
-          trxCallback?.call(
-            connection,
-            records,
-          );
           return Future.value(records);
         },
       );
