@@ -6,13 +6,14 @@ class EnvUtil {
 
   /// This method will read from .env that located on the server/ root directory
   static Future<Map<dynamic, dynamic>> readEnv() async {
+    final separator = (Platform.isWindows) ? r'\' : '/';
     final mainPath = Platform.script.toFilePath(
       windows: Platform.isWindows,
     );
-    final paths = mainPath.split('/');
+    final paths = mainPath.split(separator);
     final excludedPaths = paths.getRange(0, paths.length - 2);
-    final projectPath = excludedPaths.join('/');
-    final envPath = '$projectPath/$env';
+    final projectPath = excludedPaths.join(separator);
+    final envPath = '$projectPath$separator$env';
 
     /// First read the file string
     final contents = await File(envPath).readAsString();
