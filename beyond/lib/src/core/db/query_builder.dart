@@ -66,15 +66,18 @@ class QueryBuilder {
 
   static String where(List<Condition> conditions) {
     var query = '';
+
+    /// Loop condition to construct query
     for (var i = 0; i < conditions.length; i++) {
-      final condition =
-          '${conditions[i].field} ${conditions[i].operator} @${conditions[i].field}';
-      if (i == 0) {
-        query += '\nwhere $condition';
-      } else {
-        query += '\nand $condition';
+      /// Filter if value != null continue the process
+      if (conditions[i].value != null) {
+        /// Compile condition [field, operator, value]
+        final condition =
+            '${conditions[i].field} ${conditions[i].operator} @${conditions[i].field}';
+        query += (query.isNotEmpty) ? '\nwhere $condition' : '\nand $condition';
       }
     }
+
     return query;
   }
 
