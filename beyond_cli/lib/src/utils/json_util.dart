@@ -14,10 +14,11 @@ class JsonUtil {
 
   List<BaseClass> classes = [];
 
-  static Map<dynamic, dynamic>? tryParse(String? rawJson) {
-    if (rawJson == null) return null;
+  static Map<dynamic, dynamic>? tryParse(String rawJson) {
     try {
-      final decoded = jsonDecode(rawJson);
+      final decoded = jsonDecode(
+        rawJson,
+      );
       return decoded;
     } catch (e) {
       return null;
