@@ -1,4 +1,3 @@
-import 'package:beyond_console/presentation/pages/home_page.dart';
 import 'package:beyond_console/presentation/providers/dashboard_provider.dart';
 import 'package:beyond_console/presentation/widgets/side_navigation_bar.dart';
 import 'package:flutter/material.dart';
@@ -6,9 +5,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DashboardPage extends ConsumerWidget {
   static const routeName = '/';
+  final Widget child;
 
   const DashboardPage({
     super.key,
+    required this.child,
   });
 
   @override
@@ -27,8 +28,8 @@ class DashboardPage extends ConsumerWidget {
           context,
           provider,
         ),
-        const Expanded(
-          child: HomePage(),
+        Expanded(
+          child: child,
         ),
       ],
     );
@@ -36,7 +37,7 @@ class DashboardPage extends ConsumerWidget {
 
   Widget buildSideBar(BuildContext context, DashboardProvider provider) {
     return SideNavigationBar(
-      navigationMenus: provider.navigationMenus,
+      navigationMenus: provider.navigationMenus(context),
     );
   }
 }

@@ -17,23 +17,23 @@ class SideNavigationBar extends StatelessWidget {
       child: Container(
         width: 300,
         padding: const EdgeInsets.all(
-          12,
+          24,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Digital Product H2H',
+              'Beyond',
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(
-              height: 24,
+              height: 48,
             ),
             ListView.separated(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               separatorBuilder: (context, index) => const SizedBox(
-                height: 4,
+                height: 12,
               ),
               itemBuilder: (context, index) => InkWell(
                 borderRadius: BorderRadius.circular(24),
@@ -48,7 +48,7 @@ class SideNavigationBar extends StatelessWidget {
                     children: [
                       Icon(
                         navigationMenus[index].icon,
-                        size: 16,
+                        size: 18,
                       ),
                       const SizedBox(
                         width: 8,
@@ -61,9 +61,6 @@ class SideNavigationBar extends StatelessWidget {
                   ),
                 ),
               ),
-              // separatorBuilder: (context, index) => const SizedBox(
-              //   height: 24,
-              // ),
               itemCount: navigationMenus.length,
             ),
           ],
