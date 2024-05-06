@@ -1,3 +1,4 @@
+import 'package:beyond_console/presentation/pages/custom_dashboard_page.dart';
 import 'package:beyond_console/presentation/pages/home_page.dart';
 import 'package:beyond_console/presentation/pages/json_generator_page.dart';
 import 'package:beyond_console/presentation/pages/json_to_dart_page.dart';
@@ -46,6 +47,15 @@ class DashboardProvider extends ChangeNotifier {
           onTap: () {
             context.go(
               JsonGeneratorPage.routeName,
+            );
+          },
+        ),
+        NavigationMenu(
+          label: 'Custom Dashboard',
+          icon: FeatherIcons.monitor,
+          onTap: () {
+            context.go(
+              CustomDashboardPage.routeName,
             );
           },
         ),

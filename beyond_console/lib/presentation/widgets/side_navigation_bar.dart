@@ -48,14 +48,14 @@ class SideNavigationBar extends StatelessWidget {
                     children: [
                       Icon(
                         navigationMenus[index].icon,
-                        size: 18,
+                        size: 16,
                       ),
                       const SizedBox(
                         width: 8,
                       ),
                       Text(
                         navigationMenus[index].label,
-                        style: Theme.of(context).textTheme.labelLarge,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ],
                   ),

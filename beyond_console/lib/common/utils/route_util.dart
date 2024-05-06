@@ -1,3 +1,4 @@
+import 'package:beyond_console/presentation/pages/custom_dashboard_page.dart';
 import 'package:beyond_console/presentation/pages/dashboard_page.dart';
 import 'package:beyond_console/presentation/pages/home_page.dart';
 import 'package:beyond_console/presentation/pages/json_generator_page.dart';
@@ -34,6 +35,10 @@ class RouteUtil {
               GoRoute(
                 path: JsonToDartPage.routeName,
                 builder: (context, state) => const JsonToDartPage(),
+              ),
+              GoRoute(
+                path: CustomDashboardPage.routeName,
+                builder: (context, state) => const CustomDashboardPage(),
               ),
             ],
           ),
