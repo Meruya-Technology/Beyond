@@ -1,4 +1,0 @@
-enum RandomFactor {
-  ranged,
-  fromSeed;
-}
