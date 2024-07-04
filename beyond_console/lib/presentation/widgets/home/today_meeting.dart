@@ -32,7 +32,7 @@ class TodayMeeting extends StatelessWidget {
               separatorBuilder: (context, index) => const SizedBox(
                 height: Dimensions.m,
               ),
-              itemBuilder: (context, index) => TodayMeetingTile(),
+              itemBuilder: (context, index) => const TodayMeetingTile(),
             ),
           ],
         ),

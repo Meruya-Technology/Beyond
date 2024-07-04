@@ -16,7 +16,7 @@ class SideBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: context.colorScheme.onBackground.withOpacity(0.05),
+      color: context.colorScheme.onSurface.withOpacity(0.05),
       child: SizedBox(
         width: 300,
         child: Column(
@@ -78,7 +78,7 @@ class SideBar extends StatelessWidget {
           borderRadius: BorderRadius.circular(24),
           child: ExpansionTile(
             clipBehavior: Clip.antiAlias,
-            backgroundColor: context.colorScheme.background,
+            backgroundColor: context.colorScheme.surface,
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(20),

@@ -4,7 +4,7 @@ import 'package:beyond_console/common/extensions/nullable_int_extension.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-import '../../../domain/transaction.dart';
+import '../../../domain/entities/transaction.dart';
 
 class SmallLineChart extends StatelessWidget {
   final List<Transaction> transactions;

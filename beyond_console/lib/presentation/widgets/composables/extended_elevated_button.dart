@@ -27,7 +27,7 @@ class ExtendedElevatedButton extends ElevatedButton {
     Function(bool)? onFocusChange,
     Function(bool)? onHover,
     Function()? onLongPress,
-    MaterialStatesController? statesController,
+    WidgetStatesController? statesController,
     ButtonStyle? style,
   }) =>
       ExtendedElevatedButton(
@@ -41,22 +41,22 @@ class ExtendedElevatedButton extends ElevatedButton {
         clipBehavior: clipBehavior,
         statesController: statesController,
         style: context.theme.elevatedButtonTheme.style?.copyWith(
-          backgroundColor: MaterialStateProperty.resolveWith(
+          backgroundColor: WidgetStateProperty.resolveWith(
             (states) {
-              if (states.contains(MaterialState.pressed)) {
+              if (states.contains(WidgetState.pressed)) {
                 return context.colorScheme.primary.withOpacity(0.5);
-              } else if (states.contains(MaterialState.disabled)) {
+              } else if (states.contains(WidgetState.disabled)) {
                 return context.colorScheme.onSurface.withOpacity(0.12);
               } else {
                 return context.colorScheme.primary;
               }
             },
           ),
-          foregroundColor: MaterialStateProperty.resolveWith(
+          foregroundColor: WidgetStateProperty.resolveWith(
             (states) {
-              if (states.contains(MaterialState.pressed)) {
+              if (states.contains(WidgetState.pressed)) {
                 return context.colorScheme.onPrimary;
-              } else if (states.contains(MaterialState.disabled)) {
+              } else if (states.contains(WidgetState.disabled)) {
                 return context.colorScheme.onSurface.withOpacity(0.38);
               } else {
                 return context.colorScheme.onPrimary;
@@ -78,7 +78,7 @@ class ExtendedElevatedButton extends ElevatedButton {
     Function(bool)? onFocusChange,
     Function(bool)? onHover,
     Function()? onLongPress,
-    MaterialStatesController? statesController,
+    WidgetStatesController? statesController,
     ButtonStyle? style,
   }) =>
       ExtendedElevatedButton(
@@ -92,22 +92,22 @@ class ExtendedElevatedButton extends ElevatedButton {
         clipBehavior: clipBehavior,
         statesController: statesController,
         style: context.theme.elevatedButtonTheme.style?.copyWith(
-          backgroundColor: MaterialStateProperty.resolveWith(
+          backgroundColor: WidgetStateProperty.resolveWith(
             (states) {
-              if (states.contains(MaterialState.pressed)) {
+              if (states.contains(WidgetState.pressed)) {
                 return context.colorScheme.secondary.withOpacity(0.5);
-              } else if (states.contains(MaterialState.disabled)) {
+              } else if (states.contains(WidgetState.disabled)) {
                 return context.colorScheme.onSurface.withOpacity(0.12);
               } else {
                 return context.colorScheme.secondary;
               }
             },
           ),
-          foregroundColor: MaterialStateProperty.resolveWith(
+          foregroundColor: WidgetStateProperty.resolveWith(
             (states) {
-              if (states.contains(MaterialState.pressed)) {
+              if (states.contains(WidgetState.pressed)) {
                 return context.colorScheme.onSecondary;
-              } else if (states.contains(MaterialState.disabled)) {
+              } else if (states.contains(WidgetState.disabled)) {
                 return context.colorScheme.onSurface.withOpacity(0.38);
               } else {
                 return context.colorScheme.onSecondary;
@@ -129,7 +129,7 @@ class ExtendedElevatedButton extends ElevatedButton {
     Function(bool)? onFocusChange,
     Function(bool)? onHover,
     Function()? onLongPress,
-    MaterialStatesController? statesController,
+    WidgetStatesController? statesController,
     ButtonStyle? style,
   }) =>
       ExtendedElevatedButton(
@@ -143,22 +143,22 @@ class ExtendedElevatedButton extends ElevatedButton {
         clipBehavior: clipBehavior,
         statesController: statesController,
         style: context.theme.elevatedButtonTheme.style?.copyWith(
-          backgroundColor: MaterialStateProperty.resolveWith(
+          backgroundColor: WidgetStateProperty.resolveWith(
             (states) {
-              if (states.contains(MaterialState.pressed)) {
+              if (states.contains(WidgetState.pressed)) {
                 return context.colorScheme.tertiary.withOpacity(0.5);
-              } else if (states.contains(MaterialState.disabled)) {
+              } else if (states.contains(WidgetState.disabled)) {
                 return context.colorScheme.onSurface.withOpacity(0.12);
               } else {
                 return context.colorScheme.tertiary;
               }
             },
           ),
-          foregroundColor: MaterialStateProperty.resolveWith(
+          foregroundColor: WidgetStateProperty.resolveWith(
             (states) {
-              if (states.contains(MaterialState.pressed)) {
+              if (states.contains(WidgetState.pressed)) {
                 return context.colorScheme.onTertiary;
-              } else if (states.contains(MaterialState.disabled)) {
+              } else if (states.contains(WidgetState.disabled)) {
                 return context.colorScheme.onSurface.withOpacity(0.38);
               } else {
                 return context.colorScheme.onTertiary;

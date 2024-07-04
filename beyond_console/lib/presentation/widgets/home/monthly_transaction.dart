@@ -1,5 +1,5 @@
 import 'package:beyond_console/common/extensions/context_extension.dart';
-import 'package:beyond_console/domain/transaction.dart';
+import 'package:beyond_console/domain/entities/transaction.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 

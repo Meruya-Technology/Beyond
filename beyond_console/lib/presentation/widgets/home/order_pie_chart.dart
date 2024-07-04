@@ -2,7 +2,7 @@ import 'package:beyond_console/common/const/dimensions.dart';
 import 'package:beyond_console/common/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 
-import '../../../domain/order.dart';
+import '../../../domain/entities/order.dart';
 import '../composables/pie_chart.dart';
 import 'order_pie_chart_legend_tile.dart';
 

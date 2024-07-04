@@ -3,7 +3,7 @@ import 'package:beyond_console/common/extensions/context_extension.dart';
 import 'package:beyond_console/common/extensions/nullable_int_extension.dart';
 import 'package:flutter/material.dart';
 
-import '../../../domain/order.dart';
+import '../../../domain/entities/order.dart';
 
 class OrderPieChartLegendTile extends StatelessWidget {
   final Order project;

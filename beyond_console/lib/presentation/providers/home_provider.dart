@@ -1,13 +1,13 @@
 import 'package:beyond_console/common/const/data_formats.dart';
 import 'package:beyond_console/common/extensions/nullable_int_extension.dart';
-import 'package:beyond_console/domain/item.dart';
-import 'package:beyond_console/domain/transaction.dart';
+import 'package:beyond_console/domain/entities/item.dart';
+import 'package:beyond_console/domain/entities/transaction.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../common/utils/math_util.dart';
-import '../../domain/order.dart';
+import '../../domain/entities/order.dart';
 
 class HomeProvider extends ChangeNotifier {
   final orders = [

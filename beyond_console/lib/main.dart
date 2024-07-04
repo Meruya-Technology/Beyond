@@ -5,9 +5,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'common/const/strings.dart';
+import 'presentation/facades/main_facade.dart';
 
-void main() {
+Future<void> main() async {
   setPathUrlStrategy();
+
+  await MainFacade.initialize();
+
   runApp(
     const ProviderScope(
       child: BeyondConsoleApp(),
@@ -39,7 +43,7 @@ class BeyondConsoleApp extends ConsumerWidget {
         ),
         filledButtonTheme: FilledButtonThemeData(
           style: ButtonStyle(
-            shape: MaterialStatePropertyAll(
+            shape: WidgetStatePropertyAll(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(24),
               ),
@@ -49,22 +53,22 @@ class BeyondConsoleApp extends ConsumerWidget {
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
             splashFactory: InkRipple.splashFactory,
-            backgroundColor: MaterialStateProperty.resolveWith(
+            backgroundColor: WidgetStateProperty.resolveWith(
               (states) {
-                if (states.contains(MaterialState.pressed)) {
+                if (states.contains(WidgetState.pressed)) {
                   return context.colorScheme.primary.withOpacity(0.5);
-                } else if (states.contains(MaterialState.disabled)) {
+                } else if (states.contains(WidgetState.disabled)) {
                   return context.colorScheme.onSurface.withOpacity(0.12);
                 } else {
                   return context.colorScheme.primary;
                 }
               },
             ),
-            foregroundColor: MaterialStateProperty.resolveWith(
+            foregroundColor: WidgetStateProperty.resolveWith(
               (states) {
-                if (states.contains(MaterialState.pressed)) {
+                if (states.contains(WidgetState.pressed)) {
                   return context.colorScheme.onPrimary;
-                } else if (states.contains(MaterialState.disabled)) {
+                } else if (states.contains(WidgetState.disabled)) {
                   return context.colorScheme.onSurface.withOpacity(0.38);
                 } else {
                   return context.colorScheme.onPrimary;
@@ -75,21 +79,21 @@ class BeyondConsoleApp extends ConsumerWidget {
         ),
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: ButtonStyle(
-            foregroundColor: MaterialStateProperty.resolveWith(
+            foregroundColor: WidgetStateProperty.resolveWith(
               (states) {
-                if (states.contains(MaterialState.pressed)) {
-                  return context.colorScheme.onBackground;
-                } else if (states.contains(MaterialState.disabled)) {
-                  return context.colorScheme.onBackground.withOpacity(0.38);
+                if (states.contains(WidgetState.pressed)) {
+                  return context.colorScheme.onSurface;
+                } else if (states.contains(WidgetState.disabled)) {
+                  return context.colorScheme.onSurface.withOpacity(0.38);
                 } else {
-                  return context.colorScheme.onBackground;
+                  return context.colorScheme.onSurface;
                 }
               },
             ),
-            side: MaterialStateProperty.resolveWith(
+            side: WidgetStateProperty.resolveWith(
               (states) {
                 return BorderSide(
-                  color: context.colorScheme.onBackground.withOpacity(0.25),
+                  color: context.colorScheme.onSurface.withOpacity(0.25),
                   width: 1,
                 );
               },

@@ -1,4 +1,4 @@
-import 'package:beyond_console/domain/data_type.dart';
+import 'package:beyond_console/domain/entities/data_type.dart';
 
 enum FillCriteria {
   increment,

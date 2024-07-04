@@ -4,7 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/const/dimensions.dart';
-import '../../../domain/transaction.dart';
+import '../../../domain/entities/transaction.dart';
 
 class SmallBarChart extends StatelessWidget {
   final List<Transaction> transactions;

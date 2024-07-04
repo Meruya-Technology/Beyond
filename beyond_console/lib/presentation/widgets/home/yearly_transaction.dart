@@ -3,7 +3,7 @@ import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/const/dimensions.dart';
-import '../../../domain/transaction.dart';
+import '../../../domain/entities/transaction.dart';
 import 'small_line_chart.dart';
 
 class YearlyTransaction extends StatelessWidget {

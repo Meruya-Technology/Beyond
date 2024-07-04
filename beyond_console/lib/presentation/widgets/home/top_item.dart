@@ -3,7 +3,7 @@ import 'package:beyond_console/common/extensions/nullable_int_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/const/dimensions.dart';
-import '../../../domain/item.dart';
+import '../../../domain/entities/item.dart';
 import '../composables/progress_bar.dart';
 
 class TopItem extends StatelessWidget {
@@ -23,7 +23,7 @@ class TopItem extends StatelessWidget {
         ),
         child: Theme(
           data: context.theme.copyWith(
-            dividerColor: context.colorScheme.onBackground.withOpacity(0.05),
+            dividerColor: context.colorScheme.onSurface.withOpacity(0.05),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,8 +62,8 @@ class TopItem extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () {},
-          child: Text('View All'),
           style: context.theme.elevatedButtonTheme.style,
+          child: const Text('View All'),
         ),
       ],
     );

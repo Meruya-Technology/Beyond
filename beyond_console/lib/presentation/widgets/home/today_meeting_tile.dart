@@ -11,7 +11,7 @@ class TodayMeetingTile extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: context.colorScheme.background,
+        color: context.colorScheme.surface,
       ),
       padding: const EdgeInsets.symmetric(
         horizontal: Dimensions.s,

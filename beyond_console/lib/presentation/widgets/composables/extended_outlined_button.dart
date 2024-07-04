@@ -27,7 +27,7 @@ class ExtendedOutlinedButton extends OutlinedButton {
     Function(bool)? onFocusChange,
     Function(bool)? onHover,
     Function()? onLongPress,
-    MaterialStatesController? statesController,
+    WidgetStatesController? statesController,
     ButtonStyle? style,
   }) =>
       ExtendedOutlinedButton(
@@ -41,29 +41,29 @@ class ExtendedOutlinedButton extends OutlinedButton {
         clipBehavior: clipBehavior,
         statesController: statesController,
         style: context.theme.elevatedButtonTheme.style?.copyWith(
-          backgroundColor: MaterialStateProperty.resolveWith(
+          backgroundColor: WidgetStateProperty.resolveWith(
             (states) {
-              if (states.contains(MaterialState.pressed)) {
+              if (states.contains(WidgetState.pressed)) {
                 return Colors.transparent;
-              } else if (states.contains(MaterialState.disabled)) {
+              } else if (states.contains(WidgetState.disabled)) {
                 return context.colorScheme.onSurface.withOpacity(0.12);
               } else {
                 return Colors.transparent;
               }
             },
           ),
-          foregroundColor: MaterialStateProperty.resolveWith(
+          foregroundColor: WidgetStateProperty.resolveWith(
             (states) {
-              if (states.contains(MaterialState.pressed)) {
-                return context.colorScheme.onBackground;
-              } else if (states.contains(MaterialState.disabled)) {
+              if (states.contains(WidgetState.pressed)) {
+                return context.colorScheme.onSurface;
+              } else if (states.contains(WidgetState.disabled)) {
                 return context.colorScheme.primary.withOpacity(0.38);
               } else {
                 return context.colorScheme.primary;
               }
             },
           ),
-          side: MaterialStateProperty.resolveWith(
+          side: WidgetStateProperty.resolveWith(
             (states) {
               return BorderSide(
                 color: context.colorScheme.primary,
@@ -86,7 +86,7 @@ class ExtendedOutlinedButton extends OutlinedButton {
     Function(bool)? onFocusChange,
     Function(bool)? onHover,
     Function()? onLongPress,
-    MaterialStatesController? statesController,
+    WidgetStatesController? statesController,
     ButtonStyle? style,
   }) =>
       ExtendedOutlinedButton(
@@ -100,29 +100,29 @@ class ExtendedOutlinedButton extends OutlinedButton {
         clipBehavior: clipBehavior,
         statesController: statesController,
         style: context.theme.elevatedButtonTheme.style?.copyWith(
-          backgroundColor: MaterialStateProperty.resolveWith(
+          backgroundColor: WidgetStateProperty.resolveWith(
             (states) {
-              if (states.contains(MaterialState.pressed)) {
+              if (states.contains(WidgetState.pressed)) {
                 return Colors.transparent;
-              } else if (states.contains(MaterialState.disabled)) {
+              } else if (states.contains(WidgetState.disabled)) {
                 return context.colorScheme.onSurface.withOpacity(0.12);
               } else {
                 return Colors.transparent;
               }
             },
           ),
-          foregroundColor: MaterialStateProperty.resolveWith(
+          foregroundColor: WidgetStateProperty.resolveWith(
             (states) {
-              if (states.contains(MaterialState.pressed)) {
-                return context.colorScheme.onBackground;
-              } else if (states.contains(MaterialState.disabled)) {
+              if (states.contains(WidgetState.pressed)) {
+                return context.colorScheme.onSurface;
+              } else if (states.contains(WidgetState.disabled)) {
                 return context.colorScheme.secondary.withOpacity(0.38);
               } else {
                 return context.colorScheme.secondary;
               }
             },
           ),
-          side: MaterialStateProperty.resolveWith(
+          side: WidgetStateProperty.resolveWith(
             (states) {
               return BorderSide(
                 color: context.colorScheme.secondary,
@@ -145,7 +145,7 @@ class ExtendedOutlinedButton extends OutlinedButton {
     Function(bool)? onFocusChange,
     Function(bool)? onHover,
     Function()? onLongPress,
-    MaterialStatesController? statesController,
+    WidgetStatesController? statesController,
     ButtonStyle? style,
   }) =>
       ExtendedOutlinedButton(
@@ -159,29 +159,29 @@ class ExtendedOutlinedButton extends OutlinedButton {
         clipBehavior: clipBehavior,
         statesController: statesController,
         style: context.theme.elevatedButtonTheme.style?.copyWith(
-          backgroundColor: MaterialStateProperty.resolveWith(
+          backgroundColor: WidgetStateProperty.resolveWith(
             (states) {
-              if (states.contains(MaterialState.pressed)) {
+              if (states.contains(WidgetState.pressed)) {
                 return Colors.transparent;
-              } else if (states.contains(MaterialState.disabled)) {
+              } else if (states.contains(WidgetState.disabled)) {
                 return context.colorScheme.tertiary.withOpacity(0.12);
               } else {
                 return Colors.transparent;
               }
             },
           ),
-          foregroundColor: MaterialStateProperty.resolveWith(
+          foregroundColor: WidgetStateProperty.resolveWith(
             (states) {
-              if (states.contains(MaterialState.pressed)) {
-                return context.colorScheme.onBackground;
-              } else if (states.contains(MaterialState.disabled)) {
-                return context.colorScheme.onBackground.withOpacity(0.38);
+              if (states.contains(WidgetState.pressed)) {
+                return context.colorScheme.onSurface;
+              } else if (states.contains(WidgetState.disabled)) {
+                return context.colorScheme.onSurface.withOpacity(0.38);
               } else {
                 return context.colorScheme.tertiary;
               }
             },
           ),
-          side: MaterialStateProperty.resolveWith(
+          side: WidgetStateProperty.resolveWith(
             (states) {
               return BorderSide(
                 color: context.colorScheme.tertiary,

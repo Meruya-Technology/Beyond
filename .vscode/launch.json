@@ -17,10 +17,16 @@
             "type": "dart"
         },
         {
-            "name": "Beyond Console",
+            "name": "Beyond Console (Development)",
             "request": "launch",
             "type": "dart",
             "program": "beyond_console/lib/main.dart",
+            "args": [
+                "--web-browser-flag",
+                "--disable-web-security",
+				"--dart-define-from-file",
+				"beyond_console/.vscode/env-development.json",
+            ]
         }
     ]
 }

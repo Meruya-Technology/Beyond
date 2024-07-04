@@ -13,7 +13,7 @@ class Header extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: context.colorScheme.onBackground.withOpacity(0.05),
+            color: context.colorScheme.onSurface.withOpacity(0.05),
             width: 1,
           ),
         ),
@@ -70,7 +70,7 @@ class Header extends StatelessWidget {
                 menuChildren: [
                   MenuItemButton(
                     style: const ButtonStyle(
-                      padding: MaterialStatePropertyAll(
+                      padding: WidgetStatePropertyAll(
                         EdgeInsets.symmetric(
                           horizontal: Dimensions.m,
                           vertical: Dimensions.xs,
@@ -86,7 +86,7 @@ class Header extends StatelessWidget {
                   ),
                   MenuItemButton(
                     style: const ButtonStyle(
-                      padding: MaterialStatePropertyAll(
+                      padding: WidgetStatePropertyAll(
                         EdgeInsets.symmetric(
                           horizontal: Dimensions.m,
                           vertical: Dimensions.xs,
