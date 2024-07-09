@@ -3,6 +3,7 @@ import 'package:beyond_console/presentation/pages/components/card_page.dart';
 import 'package:beyond_console/presentation/pages/connect_page.dart';
 import 'package:beyond_console/presentation/pages/dashboard_page.dart';
 import 'package:beyond_console/presentation/pages/home_page.dart';
+import 'package:beyond_console/presentation/pages/network_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -12,7 +13,7 @@ class RouteUtil {
 
   /// This is a constant for initial route, it can be main page / splash or even
   /// authentication pages depend on the authentication proccess
-  String get initialRoute => ConnectPage.routeName;
+  String get initialRoute => DashboardPage.routeName;
 
   /// This is map of all routes, every single page that will be used in the
   /// future must be added to this map routes.
@@ -31,6 +32,10 @@ class RouteUtil {
               GoRoute(
                 path: HomePage.routeName,
                 builder: (context, state) => const HomePage(),
+              ),
+              GoRoute(
+                path: NetworkPage.routeName,
+                builder: (context, state) => const NetworkPage(),
               ),
               GoRoute(
                 path: ButtonPage.routeName,

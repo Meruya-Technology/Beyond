@@ -47,10 +47,10 @@ dependencies:
   connectivity_plus: ^6.0.3
   network_info_plus: ^5.0.3
   qr_flutter: ^4.1.0
-  shelf_web_socket: ^2.0.0
   dio: ^5.5.0
   internet_connection_checker: ^1.0.0+1
   get_it: ^7.7.0
+  web_socket_client: ^0.1.4
 
 dev_dependencies:
   flutter_test:

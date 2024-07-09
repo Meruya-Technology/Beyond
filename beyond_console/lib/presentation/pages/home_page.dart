@@ -35,53 +35,53 @@ class HomePage extends ConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const BreadCrumb(
-            title: 'Dashboard',
-            subTitle: 'E-Commerce analytic dashboard',
+            title: 'Welcome',
+            subTitle: 'Beyond Console',
           ),
           const SizedBox(
             height: Dimensions.m,
           ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                flex: 1,
-                child: weeklyTransaction(context, provider),
-              ),
-              const SizedBox(
-                width: Dimensions.m,
-              ),
-              Expanded(
-                flex: 1,
-                child: monthlyTransaction(context, provider),
-              ),
-              const SizedBox(
-                width: Dimensions.m,
-              ),
-              Expanded(
-                flex: 1,
-                child: yearlyTransaction(context, provider),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: Dimensions.m,
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: buildCurrentTransaction(
-                  context,
-                  provider,
-                ),
-              ),
-              const SizedBox(
-                width: Dimensions.m,
-              ),
-              projectChart(context, provider),
-            ],
-          ),
+          // Row(
+          //   crossAxisAlignment: CrossAxisAlignment.start,
+          //   children: [
+          //     Expanded(
+          //       flex: 1,
+          //       child: weeklyTransaction(context, provider),
+          //     ),
+          //     const SizedBox(
+          //       width: Dimensions.m,
+          //     ),
+          //     Expanded(
+          //       flex: 1,
+          //       child: monthlyTransaction(context, provider),
+          //     ),
+          //     const SizedBox(
+          //       width: Dimensions.m,
+          //     ),
+          //     Expanded(
+          //       flex: 1,
+          //       child: yearlyTransaction(context, provider),
+          //     ),
+          //   ],
+          // ),
+          // const SizedBox(
+          //   height: Dimensions.m,
+          // ),
+          // Row(
+          //   crossAxisAlignment: CrossAxisAlignment.start,
+          //   children: [
+          //     Expanded(
+          //       child: buildCurrentTransaction(
+          //         context,
+          //         provider,
+          //       ),
+          //     ),
+          //     const SizedBox(
+          //       width: Dimensions.m,
+          //     ),
+          //     projectChart(context, provider),
+          //   ],
+          // ),
         ],
       ),
     );
