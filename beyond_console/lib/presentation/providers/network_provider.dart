@@ -33,13 +33,12 @@ class NetworkProvider extends ChangeNotifier {
 
     if (status is Connected) {
       final message = Message(
-        clientId: 'Server01',
-        roomId: 'Server01',
         metadata: Metadata(
           clientType: 'dashboard',
           actionType: 'connected',
+          clientId: 'Server01',
         ),
-        payload: {},
+        payload: Payload(),
       );
 
       socket!.send(
