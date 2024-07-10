@@ -51,6 +51,12 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   get_it: ^7.7.0
   web_socket_client: ^0.1.4
+  beyond_ext:
+    git:
+      url: https://github.com/Meruya-Technology/Beyond
+      path: beyond_ext
+
+  
 
 dev_dependencies:
   flutter_test:

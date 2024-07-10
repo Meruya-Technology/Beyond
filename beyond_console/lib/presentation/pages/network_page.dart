@@ -60,66 +60,82 @@ class NetworkPage extends ConsumerWidget {
             padding: const EdgeInsets.only(
               top: Dimensions.m,
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: 300,
-                  child: TextFormField(
-                    controller: provider.ipAddressController,
-                    inputFormatters: [
-                      IpInputFormatter(),
-                    ],
-                    decoration: InputDecoration(
-                      filled: true,
-                      hintText: 'Enter Web Socket IP Address',
-                      suffix: ValueListenableBuilder<TextEditingValue>(
-                        valueListenable: provider.ipAddressController,
-                        builder: (context, value, child) => Visibility(
-                          visible: (value.text.isNotEmpty),
-                          child: IconButton(
-                            onPressed: provider.clearIpAddress,
-                            visualDensity: VisualDensity.compact,
-                            icon: const Icon(
-                              Icons.clear,
-                              size: 16,
+            child: Form(
+              key: provider.formKey,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 300,
+                    child: TextFormField(
+                      controller: provider.ipAddressController,
+                      validator: (value) {
+                        if (value?.isEmpty ?? true) {
+                          return 'required';
+                        }
+                        return null;
+                      },
+                      inputFormatters: [
+                        IpInputFormatter(),
+                      ],
+                      decoration: InputDecoration(
+                        filled: true,
+                        hintText: 'Enter Web Socket IP Address',
+                        suffix: ValueListenableBuilder<TextEditingValue>(
+                          valueListenable: provider.ipAddressController,
+                          builder: (context, value, child) => Visibility(
+                            visible: (value.text.isNotEmpty),
+                            child: IconButton(
+                              onPressed: provider.clearIpAddress,
+                              visualDensity: VisualDensity.compact,
+                              icon: const Icon(
+                                Icons.clear,
+                                size: 16,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  width: Dimensions.m,
-                ),
-                SizedBox(
-                  width: 150,
-                  child: TextFormField(
-                    keyboardType: TextInputType.number,
-                    textInputAction: TextInputAction.next,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                      LengthLimitingTextInputFormatter(4),
-                    ],
-                    decoration: const InputDecoration(
-                      filled: true,
-                      hintText: 'Port',
+                  const SizedBox(
+                    width: Dimensions.m,
+                  ),
+                  SizedBox(
+                    width: 150,
+                    child: TextFormField(
+                      controller: provider.portController,
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
+                      validator: (value) {
+                        if (value?.isEmpty ?? true) {
+                          return 'required';
+                        }
+                        return null;
+                      },
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        LengthLimitingTextInputFormatter(4),
+                      ],
+                      decoration: const InputDecoration(
+                        filled: true,
+                        hintText: 'Port',
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  width: Dimensions.m,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    provider.connectWebSocket();
-                  },
-                  child: const Text(
-                    'Connect to web socket',
+                  const SizedBox(
+                    width: Dimensions.m,
                   ),
-                ),
-              ],
+                  ElevatedButton(
+                    onPressed: () {
+                      provider.connectWebSocket(context);
+                    },
+                    child: const Text(
+                      'Connect to web socket',
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         }

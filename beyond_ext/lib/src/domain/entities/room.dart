@@ -1,3 +1,4 @@
+// ignore: depend_on_referenced_packages
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 class Room {

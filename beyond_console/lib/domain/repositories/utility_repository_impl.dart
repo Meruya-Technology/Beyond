@@ -33,7 +33,6 @@ class UtilityRepositoryImpl implements UtilityRepository {
         servers.add(searchAddress);
       }
     }
-    print(servers.toString());
     return servers;
   }
 }
