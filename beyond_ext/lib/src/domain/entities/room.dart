@@ -1,26 +1,32 @@
 // ignore: depend_on_referenced_packages
 import 'package:web_socket_channel/web_socket_channel.dart';
 
+import '../../../beyond_ext.dart';
+
 class Room {
   String roomId;
-  List<String>? users;
+  List<Device>? devices;
   WebSocketChannel? channel;
 
   Room({
     required this.roomId,
-    this.users,
+    this.devices,
     this.channel,
   });
 
   factory Room.fromJson(Map<String, dynamic> json) => Room(
         roomId: json['roomId'],
-        users: json['users'].cast<String>(),
+        devices: List<Device>.from(
+          json['devices'].map(
+            (device) => Device.fromJson(device),
+          ),
+        ),
       );
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['roomId'] = roomId;
-    data['users'] = users;
+    data['devices'] = devices;
     return data;
   }
 }
