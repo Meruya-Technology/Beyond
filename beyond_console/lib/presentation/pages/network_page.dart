@@ -45,7 +45,15 @@ class NetworkPage extends ConsumerWidget {
           const SizedBox(
             height: Dimensions.m,
           ),
-          const ClientTable(),
+          StreamBuilder(
+            stream: provider.connectionStatus,
+            builder: (context, snapshot) {
+              return ClientTable(
+                isLoading:
+                    snapshot.data is Connected || snapshot.data is Reconnected,
+              );
+            },
+          ),
         ],
       ),
     );

@@ -1,21 +1,23 @@
-// import 'package:beyond_console/domain/repositories/beyond_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-// class BeyondRepositoryImpl implements BeyondRepository {
-//   @override
-//   Future<bool> removeDevice(String name) {
-//     // TODO: implement removeDevice
-//     throw UnimplementedError();
-//   }
+import 'beyond_repository.dart';
 
-//   @override
-//   Future<List<dynamic>?> retrieveDevices() {
-//     // TODO: implement retrieveDevices
-//     throw UnimplementedError();
-//   }
+class BeyondRepositoryImpl implements BeyondRepository {
+  final SharedPreferences _sharedPreferences;
 
-//   @override
-//   Future<bool> syncDevices(device) {
-//     // TODO: implement syncDevices
-//     throw UnimplementedError();
-//   }
-// }
+  BeyondRepositoryImpl({
+    required SharedPreferences sharedPreferences,
+  }) : _sharedPreferences = sharedPreferences;
+
+  @override
+  Future<String?> retrieveRoomId() {
+    return Future.value(
+      _sharedPreferences.getString('roomId'),
+    );
+  }
+
+  @override
+  Future<bool> saveRoomId(String roomId) {
+    return _sharedPreferences.setString('roomId', roomId);
+  }
+}

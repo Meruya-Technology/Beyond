@@ -51,10 +51,12 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   get_it: ^7.7.0
   web_socket_client: ^0.1.4
+  shared_preferences: ^2.2.3
   beyond_ext:
     git:
       url: https://github.com/Meruya-Technology/Beyond
       path: beyond_ext
+      ref: 9ef70f885b807181f043f46469c0ff180b186b8b
 
   
 

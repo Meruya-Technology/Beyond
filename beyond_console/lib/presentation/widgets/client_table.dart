@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 import '../../common/const/dimensions.dart';
 
 class ClientTable extends StatelessWidget {
+  final bool? isLoading;
+
   const ClientTable({
+    this.isLoading = false,
     super.key,
   });
 
@@ -82,10 +85,13 @@ class ClientTable extends StatelessWidget {
   }
 
   Widget buildLoader(BuildContext context) {
-    return const SizedBox(
-      height: 300,
-      child: Center(
-        child: CircularProgressIndicator(),
+    return Visibility(
+      visible: isLoading ?? false,
+      child: const SizedBox(
+        height: 300,
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
       ),
     );
   }
@@ -97,10 +103,39 @@ class ClientTable extends StatelessWidget {
   Widget table(BuildContext context) {
     return SizedBox(
       width: double.maxFinite,
-      child: DataTable(
-        dividerThickness: 0,
-        columns: columns(context),
-        rows: [],
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          DataTable(
+            dividerThickness: 0,
+            columns: columns(context),
+            rows: [],
+          ),
+          loader(context),
+        ],
+      ),
+    );
+  }
+
+  Widget loader(BuildContext context) {
+    return Visibility(
+      visible: isLoading ?? false,
+      child: const SizedBox(
+        height: 400,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Waiting for client'),
+            SizedBox(
+              width: Dimensions.m,
+            ),
+            SizedBox(
+              height: 24,
+              width: 24,
+              child: CircularProgressIndicator(),
+            ),
+          ],
+        ),
       ),
     );
   }

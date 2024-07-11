@@ -35,10 +35,12 @@ class NetworkProvider extends ChangeNotifier {
       final message = Message(
         metadata: Metadata(
           clientType: 'dashboard',
-          actionType: 'connected',
+          actionType: 'create-room',
           clientId: 'Server01',
         ),
-        payload: Payload(),
+        payload: Payload(
+          roomId: 'Server01',
+        ),
       );
 
       socket!.send(
@@ -66,13 +68,13 @@ class NetworkProvider extends ChangeNotifier {
 
         socket?.messages.listen(
           (message) {
-            debugPrint('New message ! $message');
+            debugPrint('[Web Socket] Message: $message');
           },
           onError: (error) {
-            debugPrint('Socket has error $error');
+            debugPrint('[Web Socket] Error: ${error.toString()}');
           },
           onDone: () {
-            debugPrint('Socket has done');
+            debugPrint('[Web Socket] Connection closed');
           },
         );
 

@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../common/utils/route_util.dart';
 
 class GlobalProvider extends ChangeNotifier {
-  Brightness get brightness => Brightness.dark;
+  Brightness get brightness => Brightness.light;
   RouteUtil get routeUtil => RouteUtil();
 }
 

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../common/core/error_handler.dart';
 import '../../common/core/error_handler_impl.dart';
@@ -19,6 +20,7 @@ class MainFacade {
   static Future<void> initialize() async {
     await initializeErrorHandler();
     await initializeDioClient();
+    await initializeSharedPreferences();
   }
 
   static Future<void> initializeErrorHandler() async {
@@ -50,5 +52,11 @@ class MainFacade {
     getIt.registerSingleton<Dio>(
       dio,
     );
+  }
+
+  static Future<void> initializeSharedPreferences() async {
+    // Obtain shared preferences.
+    final prefs = await SharedPreferences.getInstance();
+    getIt.registerSingleton<SharedPreferences>(prefs);
   }
 }

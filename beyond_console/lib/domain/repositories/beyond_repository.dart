@@ -1,9 +1,7 @@
-import '../entities/device.dart';
+// import '../entities/device.dart';
 
 abstract class BeyondRepository {
-  Future<bool> syncDevices(Device device);
+  Future<bool> saveRoomId(String roomId);
 
-  Future<bool> removeDevice(String name);
-
-  Future<List<Device>?> retrieveDevices();
+  Future<String?> retrieveRoomId();
 }
